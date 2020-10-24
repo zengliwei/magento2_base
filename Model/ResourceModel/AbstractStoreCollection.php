@@ -18,17 +18,17 @@ abstract class AbstractStoreCollection extends AbstractCollection
     /**
      * @var MetadataPool
      */
-    protected MetadataPool $metadataPool;
+    protected $metadataPool;
 
     /**
      * @var StoreManagerInterface
      */
-    protected StoreManagerInterface $storeManager;
+    protected $storeManager;
 
     /**
      * @var string
      */
-    protected string $storeTable;
+    protected $storeTable;
 
     /**
      * @param StoreManagerInterface  $storeManager

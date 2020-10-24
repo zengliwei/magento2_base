@@ -70,14 +70,14 @@ abstract class AbstractDataProvider extends ModifierPoolDataProvider
 
         $models = $this->collection->getItems();
         foreach ($models as $model) {
-            $this->loadedData[$model->getId()] = $model->getData();
+            $this->loadedData[$model->getId()] = ['data' => $model->getData()];
         }
 
         $data = $this->dataPersistor->get($this->persistKey);
         if (!empty($data)) {
-            $block = $this->collection->getNewEmptyItem();
-            $block->setData($data);
-            $this->loadedData[$block->getId()] = $block->getData();
+            $model = $this->collection->getNewEmptyItem();
+            $model->setData($data);
+            $this->loadedData[$model->getId()] = ['data' => $model->getData()];
             $this->dataPersistor->clear($this->persistKey);
         }
 

@@ -2,14 +2,14 @@
 
 namespace Common\Base\Controller\Adminhtml;
 
-use Magento\Backend\App\Action;
 use Magento\Backend\App\Action\Context;
 use Magento\Backend\Model\View\Result\Page;
 use Magento\Backend\Model\View\Result\Redirect;
+use Magento\Framework\App\Action\HttpGetActionInterface;
 use Magento\Framework\Registry;
 use Magento\Framework\View\Result\PageFactory;
 
-abstract class AbstractEditAction extends Action
+abstract class AbstractEditAction extends AbstractAction implements HttpGetActionInterface
 {
     /**
      * @var PageFactory
@@ -33,7 +33,7 @@ abstract class AbstractEditAction extends Action
 
     /**
      * @param string $modelName
-     * @param string $resourceMenuName
+     * @param string $resourceModelName
      * @param string $noEntityMessage
      * @param string $activeMenu
      * @param string $newModelTitle
@@ -42,29 +42,27 @@ abstract class AbstractEditAction extends Action
      */
     protected function parsePage(
         string $modelName,
-        string $resourceMenuName,
+        string $resourceModelName,
         string $noEntityMessage,
         string $activeMenu,
         string $newModelTitle,
         string $editModelTitle
     ) {
-        $model = $this->_objectManager->create($modelName);
-        $resourceMenu = $this->_objectManager->create($resourceMenuName);
-
-        if (($id = $this->getRequest()->getParam('id'))) {
-            $resourceMenu->load($model);
-            if (!$model->getId()) {
-                $this->messageManager->addErrorMessage(__($noEntityMessage));
-                /* @var Redirect $resultRedirect */
-                $resultRedirect = $this->resultRedirectFactory->create();
-                return $resultRedirect->setPath('*/*/');
-            }
+        try {
+            [$model] = $this->loadModel($modelName, $resourceModelName);
+        } catch (\Exception $e) {
+            $this->messageManager->addErrorMessage(__($noEntityMessage));
+            /* @var $resultRedirect Redirect */
+            $resultRedirect = $this->resultRedirectFactory->create();
+            return $resultRedirect->setPath('*/*/');
         }
 
         /* @var $resultPage Page */
         $resultPage = $this->resultPageFactory->create();
         $resultPage->setActiveMenu($activeMenu);
-        $resultPage->getConfig()->getTitle()->set($id ? __($editModelTitle, $id) : __($newModelTitle));
+        $resultPage->getConfig()->getTitle()->set(
+            $model->getId() ? __($editModelTitle, $model->getId()) : __($newModelTitle)
+        );
         return $resultPage;
     }
 }

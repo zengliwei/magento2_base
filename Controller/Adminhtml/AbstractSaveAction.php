@@ -2,18 +2,16 @@
 
 namespace Common\Base\Controller\Adminhtml;
 
-use Magento\Backend\App\Action;
 use Magento\Backend\App\Action\Context;
 use Magento\Backend\Model\View\Result\ForwardFactory;
 use Magento\Backend\Model\View\Result\Redirect;
+use Magento\Framework\App\Action\HttpPostActionInterface;
 use Magento\Framework\App\Request\DataPersistorInterface;
-use Magento\Framework\Controller\Result\Forward;
 use Magento\Framework\Controller\ResultInterface;
 use Magento\Framework\Exception\LocalizedException;
-use Magento\Framework\Model\AbstractModel;
 use Magento\Framework\Registry;
 
-abstract class AbstractSaveAction extends Action
+abstract class AbstractSaveAction extends AbstractAction implements HttpPostActionInterface
 {
     /**
      * @var DataPersistorInterface
@@ -41,6 +39,9 @@ abstract class AbstractSaveAction extends Action
      */
     protected function processData(array $data): array
     {
+        if (isset($data['id']) && !$data['id']) {
+            unset($data['id']);
+        }
         return $data;
     }
 
@@ -62,35 +63,31 @@ abstract class AbstractSaveAction extends Action
         /* @var $resultRedirect Redirect */
         $resultRedirect = $this->resultRedirectFactory->create();
 
-        $data = $this->getRequest()->getPostValue();
-        if ($data) {
-            /* @var $model AbstractModel */
-            $model = $this->_objectManager->create($modelName);
-            $resourceModel = $this->_objectManager->create($resourceModelName);
-
-            $id = $this->getRequest()->getParam('id');
-            if ($id) {
-                $resourceModel->load($model->setId($id));
-                if (!$model->getId()) {
-                    $this->messageManager->addErrorMessage(__($noEntityMessage));
-                    return $resultRedirect->setPath('*/*/');
-                }
+        $post = $this->getRequest()->getPostValue();
+        if ($post) {
+            try {
+                [$model, $resourceModel] = $this->loadModel($modelName, $resourceModelName);
+            } catch (\Exception $e) {
+                $this->messageManager->addErrorMessage(__($noEntityMessage));
+                return $resultRedirect->setPath('*/*/');
             }
 
             try {
-                $model->setData($this->processData($data));
+                $model->addData($this->processData($post['data']));
                 $resourceModel->save($model);
                 $this->messageManager->addSuccessMessage(__($successMessage));
                 $this->dataPersistor->clear($persistKey);
-                return $resultRedirect->setPath('*/*/edit', ['id' => $id]);
+                if ($post['back'] == 'close') {
+                    return $resultRedirect->setPath('*/*/');
+                }
             } catch (LocalizedException $e) {
                 $this->messageManager->addErrorMessage($e->getMessage());
             } catch (\Exception $e) {
                 $this->messageManager->addExceptionMessage($e, __('Something went wrong while saving the data.'));
             }
 
-            $this->dataPersistor->set($persistKey, $data);
-            return $resultRedirect->setPath('*/*/edit', ['id' => $id]);
+            $this->dataPersistor->set($persistKey, $post);
+            return $resultRedirect->setPath('*/*/edit', ['id' => $model->getId()]);
         }
 
         return $resultRedirect->setPath('*/*/');
