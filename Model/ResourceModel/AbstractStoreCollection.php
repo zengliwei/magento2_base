@@ -54,6 +54,20 @@ abstract class AbstractStoreCollection extends AbstractCollection
     }
 
     /**
+     * @inheritDoc
+     */
+    protected function _afterLoad()
+    {
+        parent::_afterLoad();
+        foreach ($this->_items as $item) {
+            if ($item->hasData('store_ids') && is_string($item->getData('store_ids'))) {
+                $item->setData('store_ids', explode(',', $item->getData('store_ids')));
+            }
+        }
+        return $this;
+    }
+
+    /**
      * @param int|int[]|Store
      * @param bool $withAdmin
      * @return AbstractStoreCollection
