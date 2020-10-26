@@ -39,7 +39,7 @@ abstract class AbstractIndexAction extends Action implements HttpGetActionInterf
      * @param string $pageTitle
      * @return Page|Redirect
      */
-    protected function parsePage(
+    protected function render(
         string $persistKey,
         string $activeMenu,
         string $pageTitle
@@ -49,7 +49,7 @@ abstract class AbstractIndexAction extends Action implements HttpGetActionInterf
         /* @var $resultPage Page */
         $resultPage = $this->resultPageFactory->create();
         $resultPage->setActiveMenu($activeMenu);
-        $resultPage->getConfig()->getTitle()->set($pageTitle);
+        $resultPage->getConfig()->getTitle()->prepend($pageTitle);
 
         return $resultPage;
     }

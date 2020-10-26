@@ -39,7 +39,7 @@ abstract class AbstractEditAction extends AbstractAction implements HttpGetActio
      * @param string $editModelTitle
      * @return Page|Redirect
      */
-    protected function parsePage(
+    protected function render(
         string $modelName,
         string $noEntityMessage,
         string $activeMenu,
@@ -58,7 +58,7 @@ abstract class AbstractEditAction extends AbstractAction implements HttpGetActio
         /* @var $resultPage Page */
         $resultPage = $this->resultPageFactory->create();
         $resultPage->setActiveMenu($activeMenu);
-        $resultPage->getConfig()->getTitle()->set(
+        $resultPage->getConfig()->getTitle()->prepend(
             $model->getId() ? __($editModelTitle, $model->getId()) : __($newModelTitle)
         );
         return $resultPage;
