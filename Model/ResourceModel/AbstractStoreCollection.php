@@ -78,7 +78,7 @@ abstract class AbstractStoreCollection extends AbstractCollection
         if ($store instanceof Store) {
             $storeIds = [$store->getId()];
         }
-        if (!is_array($store)) {
+        elseif (!is_array($store)) {
             $storeIds = [$store];
         }
         if ($withAdmin) {
