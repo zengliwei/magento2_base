@@ -47,7 +47,6 @@ abstract class AbstractSaveAction extends AbstractAction implements HttpPostActi
 
     /**
      * @param $modelName
-     * @param $resourceModelName
      * @param $noEntityMessage
      * @param $successMessage
      * @param $persistKey
@@ -55,7 +54,6 @@ abstract class AbstractSaveAction extends AbstractAction implements HttpPostActi
      */
     protected function save(
         $modelName,
-        $resourceModelName,
         $noEntityMessage,
         $successMessage,
         $persistKey
@@ -66,7 +64,7 @@ abstract class AbstractSaveAction extends AbstractAction implements HttpPostActi
         $post = $this->getRequest()->getPostValue();
         if ($post) {
             try {
-                [$model, $resourceModel] = $this->loadModel($modelName, $resourceModelName);
+                [$model, $resourceModel] = $this->loadModel($modelName);
             } catch (\Exception $e) {
                 $this->messageManager->addErrorMessage(__($noEntityMessage));
                 return $resultRedirect->setPath('*/*/');

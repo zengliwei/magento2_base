@@ -33,7 +33,6 @@ abstract class AbstractEditAction extends AbstractAction implements HttpGetActio
 
     /**
      * @param string $modelName
-     * @param string $resourceModelName
      * @param string $noEntityMessage
      * @param string $activeMenu
      * @param string $newModelTitle
@@ -42,14 +41,13 @@ abstract class AbstractEditAction extends AbstractAction implements HttpGetActio
      */
     protected function parsePage(
         string $modelName,
-        string $resourceModelName,
         string $noEntityMessage,
         string $activeMenu,
         string $newModelTitle,
         string $editModelTitle
     ) {
         try {
-            [$model] = $this->loadModel($modelName, $resourceModelName);
+            [$model] = $this->loadModel($modelName);
         } catch (\Exception $e) {
             $this->messageManager->addErrorMessage(__($noEntityMessage));
             /* @var $resultRedirect Redirect */

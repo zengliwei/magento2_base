@@ -10,14 +10,12 @@ abstract class AbstractDeleteAction extends AbstractAction implements HttpPostAc
 {
     /**
      * @param $modelName
-     * @param $resourceModelName
      * @param $noEntityMessage
      * @param $successMessage
      * @return ResultInterface
      */
     protected function delete(
         $modelName,
-        $resourceModelName,
         $noEntityMessage,
         $successMessage
     ) {
@@ -25,7 +23,7 @@ abstract class AbstractDeleteAction extends AbstractAction implements HttpPostAc
         $resultRedirect = $this->resultRedirectFactory->create();
 
         try {
-            [$model, $resourceModel] = $this->loadModel($modelName, $resourceModelName);
+            [$model, $resourceModel] = $this->loadModel($modelName);
         } catch (\Exception $e) {
             $this->messageManager->addErrorMessage(__($noEntityMessage));
             return $resultRedirect->setPath('*/*/');

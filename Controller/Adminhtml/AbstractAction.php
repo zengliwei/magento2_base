@@ -9,12 +9,28 @@ use Magento\Framework\Model\ResourceModel\Db\AbstractDb;
 
 abstract class AbstractAction extends Action
 {
-    protected function loadModel($modelName, $resourceModelName)
+    /**
+     * @param string $modelName
+     * @return array
+     */
+    protected function getModels($modelName)
+    {
+        $model = $this->_objectManager->create($modelName);
+        $resourceModel = $this->_objectManager->create($model->getResourceName());
+
+        return [$model, $resourceModel];
+    }
+
+    /**
+     * @param string $modelName
+     * @return array
+     * @throws NoSuchEntityException
+     */
+    protected function loadModel($modelName)
     {
         /* @var $model AbstractModel */
         /* @var $resourceModel AbstractDb */
-        $model = $this->_objectManager->create($modelName);
-        $resourceModel = $this->_objectManager->create($resourceModelName);
+        [$model, $resourceModel] = $this->getModels($modelName);
 
         if (($id = $this->getRequest()->getParam('id'))) {
             $resourceModel->load($model, $id);
