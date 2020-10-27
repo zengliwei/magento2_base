@@ -9,7 +9,7 @@ use Magento\Framework\Controller\Result\Json;
 use Magento\Framework\Controller\Result\JsonFactory;
 use Magento\Framework\Registry;
 
-abstract class AbstractMassAction extends AbstractAction implements HttpPostActionInterface
+abstract class AbstractAjaxAction extends AbstractAction implements HttpPostActionInterface
 {
     /**
      * @var JsonFactory

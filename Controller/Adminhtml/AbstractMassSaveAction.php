@@ -5,7 +5,7 @@ namespace Common\Base\Controller\Adminhtml;
 use Magento\Framework\Model\AbstractModel;
 use Magento\Framework\Model\ResourceModel\Db\AbstractDb;
 
-abstract class AbstractMassSaveAction extends AbstractMassAction
+abstract class AbstractMassSaveAction extends AbstractAjaxAction
 {
     protected function save($modelName)
     {
