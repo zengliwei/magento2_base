@@ -12,7 +12,7 @@ use Magento\Framework\Controller\ResultFactory;
 abstract class AbstractIndexAction extends Action implements HttpGetActionInterface
 {
     /**
-     * @var DataPersistorInterface|mixed|null
+     * @var DataPersistorInterface
      */
     protected $dataPersistor;
 
