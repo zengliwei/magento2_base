@@ -32,18 +32,12 @@ abstract class AbstractAjaxAction extends AbstractAction implements HttpPostActi
     }
 
     /**
-     * @param array $messages
-     * @param bool  $error
+     * @param array $result
      * @return Json
      */
-    protected function processResult($messages = [], $error = false)
+    protected function processResult($result)
     {
         $resultJson = $this->resultJsonFactory->create();
-        return $resultJson->setData(
-            [
-                'messages' => $messages,
-                'error'    => $error
-            ]
-        );
+        return $resultJson->setData($result);
     }
 }

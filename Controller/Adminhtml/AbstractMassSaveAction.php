@@ -33,6 +33,6 @@ abstract class AbstractMassSaveAction extends AbstractAjaxAction
             }
         }
 
-        return $this->processResult($messages, $error);
+        return $this->processResult(['message' => $messages, 'error' => $error]);
     }
 }
