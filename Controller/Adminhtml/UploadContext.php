@@ -2,8 +2,8 @@
 
 namespace Common\Base\Controller\Adminhtml;
 
+use Magento\Framework\File\UploaderFactory;
 use Magento\Framework\Filesystem;
-use Magento\MediaStorage\Model\File\UploaderFactory;
 use Magento\Store\Model\StoreManagerInterface;
 
 class UploadContext extends \Magento\Backend\App\Action\Context

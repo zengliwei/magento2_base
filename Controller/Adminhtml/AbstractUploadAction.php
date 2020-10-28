@@ -4,9 +4,9 @@ namespace Common\Base\Controller\Adminhtml;
 
 use Magento\Framework\App\Filesystem\DirectoryList;
 use Magento\Framework\Exception\FileSystemException;
+use Magento\Framework\File\Uploader;
+use Magento\Framework\File\UploaderFactory;
 use Magento\Framework\Filesystem;
-use Magento\MediaStorage\Model\File\Uploader;
-use Magento\MediaStorage\Model\File\UploaderFactory;
 use Magento\Store\Model\StoreManagerInterface;
 
 abstract class AbstractUploadAction extends AbstractAjaxAction
