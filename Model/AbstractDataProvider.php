@@ -68,6 +68,7 @@ abstract class AbstractDataProvider extends ModifierPoolDataProvider
             return $this->loadedData;
         }
 
+        $this->loadedData = [];
         $models = $this->collection->getItems();
         foreach ($models as $model) {
             $this->loadedData[$model->getId()] = ['data' => $model->getData()];
