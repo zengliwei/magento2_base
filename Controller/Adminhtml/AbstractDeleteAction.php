@@ -4,6 +4,7 @@ namespace Common\Base\Controller\Adminhtml;
 
 use Magento\Backend\Model\View\Result\Redirect;
 use Magento\Framework\App\Action\HttpPostActionInterface;
+use Magento\Framework\Controller\ResultFactory;
 use Magento\Framework\Controller\ResultInterface;
 
 abstract class AbstractDeleteAction extends AbstractAction implements HttpPostActionInterface
@@ -20,7 +21,7 @@ abstract class AbstractDeleteAction extends AbstractAction implements HttpPostAc
         $successMessage
     ) {
         /* @var $resultRedirect Redirect */
-        $resultRedirect = $this->resultRedirectFactory->create();
+        $resultRedirect = $this->resultFactory->create(ResultFactory::TYPE_REDIRECT);
 
         try {
             [$model, $resourceModel] = $this->loadModel($modelName);

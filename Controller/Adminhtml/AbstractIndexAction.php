@@ -3,12 +3,11 @@
 namespace Common\Base\Controller\Adminhtml;
 
 use Magento\Backend\App\Action;
-use Magento\Backend\App\Action\Context;
 use Magento\Backend\Model\View\Result\Page;
 use Magento\Backend\Model\View\Result\Redirect;
 use Magento\Framework\App\Action\HttpGetActionInterface;
 use Magento\Framework\App\Request\DataPersistorInterface;
-use Magento\Framework\View\Result\PageFactory;
+use Magento\Framework\Controller\ResultFactory;
 
 abstract class AbstractIndexAction extends Action implements HttpGetActionInterface
 {
@@ -18,19 +17,13 @@ abstract class AbstractIndexAction extends Action implements HttpGetActionInterf
     protected $dataPersistor;
 
     /**
-     * @var PageFactory
+     * @param IndexContext $context
      */
-    protected $resultPageFactory;
-
-    public function __construct(
-        DataPersistorInterface $dataPersistor,
-        PageFactory $resultPageFactory,
-        Context $context
-    ) {
+    public function __construct(IndexContext $context)
+    {
         parent::__construct($context);
 
-        $this->dataPersistor = $dataPersistor;
-        $this->resultPageFactory = $resultPageFactory;
+        $this->dataPersistor = $context->getDataPersistor();
     }
 
     /**
@@ -47,7 +40,7 @@ abstract class AbstractIndexAction extends Action implements HttpGetActionInterf
         $this->dataPersistor->clear($persistKey);
 
         /* @var $resultPage Page */
-        $resultPage = $this->resultPageFactory->create();
+        $resultPage = $this->resultFactory->create(ResultFactory::TYPE_PAGE);
         $resultPage->setActiveMenu($activeMenu);
         $resultPage->getConfig()->getTitle()->prepend($pageTitle);
 

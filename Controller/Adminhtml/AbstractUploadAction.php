@@ -2,12 +2,9 @@
 
 namespace Common\Base\Controller\Adminhtml;
 
-use Magento\Backend\App\Action\Context;
 use Magento\Framework\App\Filesystem\DirectoryList;
-use Magento\Framework\Controller\Result\JsonFactory;
 use Magento\Framework\Exception\FileSystemException;
 use Magento\Framework\Filesystem;
-use Magento\Framework\Registry;
 use Magento\MediaStorage\Model\File\Uploader;
 use Magento\MediaStorage\Model\File\UploaderFactory;
 use Magento\Store\Model\StoreManagerInterface;
@@ -30,27 +27,16 @@ abstract class AbstractUploadAction extends AbstractAjaxAction
     protected $storeManager;
 
     /**
-     * @param Filesystem            $filesystem
-     * @param UploaderFactory       $uploaderFactory
-     * @param StoreManagerInterface $storeManager
-     * @param JsonFactory           $resultJsonFactory
-     * @param Context               $context
-     * @param Registry              $coreRegistry
+     * @param UploadContext $context
      * @throws FileSystemException
      */
-    public function __construct(
-        Filesystem $filesystem,
-        UploaderFactory $uploaderFactory,
-        StoreManagerInterface $storeManager,
-        JsonFactory $resultJsonFactory,
-        Context $context,
-        Registry $coreRegistry
-    ) {
-        $this->mediaDirectory = $filesystem->getDirectoryWrite(DirectoryList::MEDIA);
-        $this->uploaderFactory = $uploaderFactory;
-        $this->storeManager = $storeManager;
+    public function __construct(UploadContext $context)
+    {
+        parent::__construct($context);
 
-        parent::__construct($resultJsonFactory, $context, $coreRegistry);
+        $this->mediaDirectory = $context->getFilesystem()->getDirectoryWrite(DirectoryList::MEDIA);
+        $this->uploaderFactory = $context->getUploaderFactory();
+        $this->storeManager = $context->getStoreManager();
     }
 
     /**

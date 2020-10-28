@@ -2,14 +2,12 @@
 
 namespace Common\Base\Controller\Adminhtml;
 
-use Magento\Backend\App\Action\Context;
-use Magento\Backend\Model\View\Result\ForwardFactory;
 use Magento\Backend\Model\View\Result\Redirect;
 use Magento\Framework\App\Action\HttpPostActionInterface;
 use Magento\Framework\App\Request\DataPersistorInterface;
 use Magento\Framework\Controller\ResultInterface;
 use Magento\Framework\Exception\LocalizedException;
-use Magento\Framework\Registry;
+use Magento\Framework\Filesystem;
 
 abstract class AbstractSaveAction extends AbstractAction implements HttpPostActionInterface
 {
@@ -19,18 +17,19 @@ abstract class AbstractSaveAction extends AbstractAction implements HttpPostActi
     protected $dataPersistor;
 
     /**
-     * @param DataPersistorInterface $dataPersistor
-     * @param Context                $context
-     * @param Registry               $coreRegistry
+     * @var Filesystem
      */
-    public function __construct(
-        DataPersistorInterface $dataPersistor,
-        Context $context,
-        Registry $coreRegistry
-    ) {
-        parent::__construct($context, $coreRegistry);
+    protected $filesystem;
 
-        $this->dataPersistor = $dataPersistor;
+    /**
+     * @param SaveContext $context
+     */
+    public function __construct(SaveContext $context)
+    {
+        parent::__construct($context);
+
+        $this->dataPersistor = $context->getDataPersistor();
+        $this->filesystem = $context->getFilesystem();
     }
 
     /**

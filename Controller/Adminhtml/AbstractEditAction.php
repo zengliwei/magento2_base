@@ -2,35 +2,13 @@
 
 namespace Common\Base\Controller\Adminhtml;
 
-use Magento\Backend\App\Action\Context;
 use Magento\Backend\Model\View\Result\Page;
 use Magento\Backend\Model\View\Result\Redirect;
 use Magento\Framework\App\Action\HttpGetActionInterface;
-use Magento\Framework\Registry;
-use Magento\Framework\View\Result\PageFactory;
+use Magento\Framework\Controller\ResultFactory;
 
 abstract class AbstractEditAction extends AbstractAction implements HttpGetActionInterface
 {
-    /**
-     * @var PageFactory
-     */
-    protected $resultPageFactory;
-
-    /**
-     * @param PageFactory $resultPageFactory
-     * @param Context     $context
-     * @param Registry    $coreRegistry
-     */
-    public function __construct(
-        PageFactory $resultPageFactory,
-        Context $context,
-        Registry $coreRegistry
-    ) {
-        parent::__construct($context, $coreRegistry);
-
-        $this->resultPageFactory = $resultPageFactory;
-    }
-
     /**
      * @param string $modelName
      * @param string $noEntityMessage
@@ -56,7 +34,7 @@ abstract class AbstractEditAction extends AbstractAction implements HttpGetActio
         }
 
         /* @var $resultPage Page */
-        $resultPage = $this->resultPageFactory->create();
+        $resultPage = $this->resultFactory->create(ResultFactory::TYPE_PAGE);
         $resultPage->setActiveMenu($activeMenu);
         $resultPage->getConfig()->getTitle()->prepend(
             $model->getId() ? __($editModelTitle, $model->getId()) : __($newModelTitle)
