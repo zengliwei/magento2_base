@@ -83,7 +83,7 @@ abstract class AbstractSaveAction extends AbstractAction implements HttpPostActi
                 $this->messageManager->addExceptionMessage($e, __('Something went wrong while saving the data.'));
             }
 
-            $this->dataPersistor->set($persistKey, $post);
+            $this->dataPersistor->set($persistKey, $post['data']);
             return $resultRedirect->setPath('*/*/edit', ['id' => $model->getId()]);
         }
 
