@@ -26,6 +26,11 @@ use Magento\Framework\File\UploaderFactory;
 use Magento\Framework\Filesystem;
 use Magento\Store\Model\StoreManagerInterface;
 
+/**
+ * @package Common\Base
+ * @author  Zengliwei <zengliwei@163.com>
+ * @url https://github.com/zengliwei/magento2_banner
+ */
 abstract class AbstractUploadAction extends AbstractAjaxAction
 {
     /**

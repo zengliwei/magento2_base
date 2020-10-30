@@ -20,6 +20,11 @@ namespace Common\Base\Model;
 
 use Magento\Framework\Model\AbstractModel;
 
+/**
+ * @package Common\Base
+ * @author  Zengliwei <zengliwei@163.com>
+ * @url https://github.com/zengliwei/magento2_banner
+ */
 abstract class AbstractStoreModel extends AbstractModel
 {
     /**

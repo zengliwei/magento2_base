@@ -22,6 +22,11 @@ use Exception;
 use Magento\Framework\Model\AbstractModel;
 use Magento\Framework\Model\ResourceModel\Db\AbstractDb;
 
+/**
+ * @package Common\Base
+ * @author  Zengliwei <zengliwei@163.com>
+ * @url https://github.com/zengliwei/magento2_banner
+ */
 abstract class AbstractMassSaveAction extends AbstractAjaxAction
 {
     protected function save($modelName)

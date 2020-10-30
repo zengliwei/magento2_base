@@ -25,6 +25,11 @@ use Magento\Framework\Controller\Result\Forward;
 use Magento\Framework\Controller\ResultFactory;
 use Magento\Framework\Controller\ResultInterface;
 
+/**
+ * @package Common\Base
+ * @author  Zengliwei <zengliwei@163.com>
+ * @url https://github.com/zengliwei/magento2_banner
+ */
 abstract class AbstractNewAction extends Action implements HttpGetActionInterface
 {
     /**

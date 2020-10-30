@@ -24,6 +24,11 @@ use Magento\Framework\App\ResourceConnection\SourceProviderInterface;
 use Magento\Ui\DataProvider\Modifier\PoolInterface;
 use Magento\Ui\DataProvider\ModifierPoolDataProvider;
 
+/**
+ * @package Common\Base
+ * @author  Zengliwei <zengliwei@163.com>
+ * @url https://github.com/zengliwei/magento2_banner
+ */
 abstract class AbstractDataProvider extends ModifierPoolDataProvider
 {
     /**

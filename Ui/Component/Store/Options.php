@@ -20,6 +20,11 @@ namespace Common\Base\Ui\Component\Store;
 
 use Magento\Store\Ui\Component\Listing\Column\Store\Options as StoreOptions;
 
+/**
+ * @package Common\Base
+ * @author  Zengliwei <zengliwei@163.com>
+ * @url https://github.com/zengliwei/magento2_banner
+ */
 class Options extends StoreOptions
 {
     public const ALL_STORE_VIEWS = '0';
