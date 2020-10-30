@@ -15,8 +15,10 @@
  * OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
  * OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 namespace Common\Base\Controller\Adminhtml;
 
+use Exception;
 use Magento\Backend\Model\View\Result\Page;
 use Magento\Backend\Model\View\Result\Redirect;
 use Magento\Framework\App\Action\HttpGetActionInterface;
@@ -41,7 +43,7 @@ abstract class AbstractEditAction extends AbstractAction implements HttpGetActio
     ) {
         try {
             [$model] = $this->loadModel($modelName);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $this->messageManager->addErrorMessage(__($noEntityMessage));
             /* @var $resultRedirect Redirect */
             $resultRedirect = $this->resultRedirectFactory->create();

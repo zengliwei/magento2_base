@@ -15,13 +15,31 @@
  * OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
  * OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 namespace Common\Base\Controller\Adminhtml;
 
+use Magento\Backend\App\Action\Context;
+use Magento\Backend\Helper\Data;
+use Magento\Backend\Model\Auth;
+use Magento\Backend\Model\Session;
+use Magento\Backend\Model\UrlInterface;
+use Magento\Backend\Model\View\Result\RedirectFactory;
+use Magento\Framework\App\ActionFlag;
+use Magento\Framework\App\RequestInterface;
+use Magento\Framework\App\Response\RedirectInterface;
+use Magento\Framework\App\ResponseInterface;
+use Magento\Framework\App\ViewInterface;
+use Magento\Framework\AuthorizationInterface;
+use Magento\Framework\Controller\ResultFactory;
+use Magento\Framework\Data\Form\FormKey\Validator;
 use Magento\Framework\File\UploaderFactory;
 use Magento\Framework\Filesystem;
+use Magento\Framework\Locale\ResolverInterface;
+use Magento\Framework\Message\ManagerInterface;
+use Magento\Framework\ObjectManagerInterface;
 use Magento\Store\Model\StoreManagerInterface;
 
-class UploadContext extends \Magento\Backend\App\Action\Context
+class UploadContext extends Context
 {
     /**
      * @var Filesystem
@@ -42,24 +60,24 @@ class UploadContext extends \Magento\Backend\App\Action\Context
         Filesystem $filesystem,
         StoreManagerInterface $storeManager,
         UploaderFactory $uploaderFactory,
-        \Magento\Framework\App\RequestInterface $request,
-        \Magento\Framework\App\ResponseInterface $response,
-        \Magento\Framework\ObjectManagerInterface $objectManager,
+        RequestInterface $request,
+        ResponseInterface $response,
+        ObjectManagerInterface $objectManager,
         \Magento\Framework\Event\ManagerInterface $eventManager,
         \Magento\Framework\UrlInterface $url,
-        \Magento\Framework\App\Response\RedirectInterface $redirect,
-        \Magento\Framework\App\ActionFlag $actionFlag,
-        \Magento\Framework\App\ViewInterface $view,
-        \Magento\Framework\Message\ManagerInterface $messageManager,
-        \Magento\Backend\Model\View\Result\RedirectFactory $resultRedirectFactory,
-        \Magento\Framework\Controller\ResultFactory $resultFactory,
-        \Magento\Backend\Model\Session $session,
-        \Magento\Framework\AuthorizationInterface $authorization,
-        \Magento\Backend\Model\Auth $auth,
-        \Magento\Backend\Helper\Data $helper,
-        \Magento\Backend\Model\UrlInterface $backendUrl,
-        \Magento\Framework\Data\Form\FormKey\Validator $formKeyValidator,
-        \Magento\Framework\Locale\ResolverInterface $localeResolver,
+        RedirectInterface $redirect,
+        ActionFlag $actionFlag,
+        ViewInterface $view,
+        ManagerInterface $messageManager,
+        RedirectFactory $resultRedirectFactory,
+        ResultFactory $resultFactory,
+        Session $session,
+        AuthorizationInterface $authorization,
+        Auth $auth,
+        Data $helper,
+        UrlInterface $backendUrl,
+        Validator $formKeyValidator,
+        ResolverInterface $localeResolver,
         $canUseBaseUrl = false
     ) {
         parent::__construct(

@@ -15,6 +15,7 @@
  * OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
  * OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 namespace Common\Base\Model\ResourceModel;
 
 use Magento\Framework\Data\Collection\Db\FetchStrategyInterface;
@@ -69,20 +70,6 @@ abstract class AbstractStoreCollection extends AbstractCollection
     }
 
     /**
-     * @inheritDoc
-     */
-    protected function _afterLoad()
-    {
-        parent::_afterLoad();
-        foreach ($this->_items as $item) {
-            if ($item->hasData('store_ids') && is_string($item->getData('store_ids'))) {
-                $item->setData('store_ids', explode(',', $item->getData('store_ids')));
-            }
-        }
-        return $this;
-    }
-
-    /**
      * @param int|int[]|Store
      * @param bool $withAdmin
      * @return AbstractStoreCollection
@@ -92,8 +79,7 @@ abstract class AbstractStoreCollection extends AbstractCollection
         $storeIds = $store;
         if ($store instanceof Store) {
             $storeIds = [$store->getId()];
-        }
-        elseif (!is_array($store)) {
+        } elseif (!is_array($store)) {
             $storeIds = [$store];
         }
         if ($withAdmin) {
@@ -107,5 +93,19 @@ abstract class AbstractStoreCollection extends AbstractCollection
             $conditions[] = ['finset' => $storeId];
         }
         return $this->addFieldToFilter($fields, $conditions);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected function _afterLoad()
+    {
+        parent::_afterLoad();
+        foreach ($this->_items as $item) {
+            if ($item->hasData('store_ids') && is_string($item->getData('store_ids'))) {
+                $item->setData('store_ids', explode(',', $item->getData('store_ids')));
+            }
+        }
+        return $this;
     }
 }

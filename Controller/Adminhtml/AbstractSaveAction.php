@@ -15,8 +15,10 @@
  * OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
  * OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 namespace Common\Base\Controller\Adminhtml;
 
+use Exception;
 use Magento\Backend\Model\View\Result\Redirect;
 use Magento\Framework\App\Action\HttpPostActionInterface;
 use Magento\Framework\App\Request\DataPersistorInterface;
@@ -48,18 +50,6 @@ abstract class AbstractSaveAction extends AbstractAction implements HttpPostActi
     }
 
     /**
-     * @param array $data
-     * @return array
-     */
-    protected function processData(array $data): array
-    {
-        if (isset($data['id']) && !$data['id']) {
-            unset($data['id']);
-        }
-        return $data;
-    }
-
-    /**
      * @param $modelName
      * @param $noEntityMessage
      * @param $successMessage
@@ -79,7 +69,7 @@ abstract class AbstractSaveAction extends AbstractAction implements HttpPostActi
         if ($post) {
             try {
                 [$model, $resourceModel] = $this->loadModel($modelName);
-            } catch (\Exception $e) {
+            } catch (Exception $e) {
                 $this->messageManager->addErrorMessage(__($noEntityMessage));
                 return $resultRedirect->setPath('*/*/');
             }
@@ -94,7 +84,7 @@ abstract class AbstractSaveAction extends AbstractAction implements HttpPostActi
                 }
             } catch (LocalizedException $e) {
                 $this->messageManager->addErrorMessage($e->getMessage());
-            } catch (\Exception $e) {
+            } catch (Exception $e) {
                 $this->messageManager->addExceptionMessage($e, __('Something went wrong while saving the data.'));
             }
 
@@ -103,5 +93,17 @@ abstract class AbstractSaveAction extends AbstractAction implements HttpPostActi
         }
 
         return $resultRedirect->setPath('*/*/');
+    }
+
+    /**
+     * @param array $data
+     * @return array
+     */
+    protected function processData(array $data): array
+    {
+        if (isset($data['id']) && !$data['id']) {
+            unset($data['id']);
+        }
+        return $data;
     }
 }

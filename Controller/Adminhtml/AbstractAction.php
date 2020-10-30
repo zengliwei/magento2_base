@@ -15,6 +15,7 @@
  * OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
  * OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 namespace Common\Base\Controller\Adminhtml;
 
 use Magento\Backend\App\Action;
@@ -24,18 +25,6 @@ use Magento\Framework\Model\ResourceModel\Db\AbstractDb;
 
 abstract class AbstractAction extends Action
 {
-    /**
-     * @param string $modelName
-     * @return array
-     */
-    protected function getModels($modelName)
-    {
-        $model = $this->_objectManager->create($modelName);
-        $resourceModel = $this->_objectManager->create($model->getResourceName());
-
-        return [$model, $resourceModel];
-    }
-
     /**
      * @param string $modelName
      * @return array
@@ -53,6 +42,18 @@ abstract class AbstractAction extends Action
                 throw new NoSuchEntityException();
             }
         }
+
+        return [$model, $resourceModel];
+    }
+
+    /**
+     * @param string $modelName
+     * @return array
+     */
+    protected function getModels($modelName)
+    {
+        $model = $this->_objectManager->create($modelName);
+        $resourceModel = $this->_objectManager->create($model->getResourceName());
 
         return [$model, $resourceModel];
     }

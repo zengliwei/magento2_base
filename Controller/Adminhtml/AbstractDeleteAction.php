@@ -15,8 +15,10 @@
  * OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
  * OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 namespace Common\Base\Controller\Adminhtml;
 
+use Exception;
 use Magento\Backend\Model\View\Result\Redirect;
 use Magento\Framework\App\Action\HttpPostActionInterface;
 use Magento\Framework\Controller\ResultFactory;
@@ -40,7 +42,7 @@ abstract class AbstractDeleteAction extends AbstractAction implements HttpPostAc
 
         try {
             [$model, $resourceModel] = $this->loadModel($modelName);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $this->messageManager->addErrorMessage(__($noEntityMessage));
             return $resultRedirect->setPath('*/*/');
         }
@@ -48,7 +50,7 @@ abstract class AbstractDeleteAction extends AbstractAction implements HttpPostAc
         try {
             $resourceModel->delete($model);
             $this->messageManager->addSuccessMessage(__($successMessage));
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $this->messageManager->addErrorMessage($e->getMessage());
         }
 

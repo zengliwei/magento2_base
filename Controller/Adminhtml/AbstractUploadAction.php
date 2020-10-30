@@ -15,8 +15,10 @@
  * OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
  * OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 namespace Common\Base\Controller\Adminhtml;
 
+use Exception;
 use Magento\Framework\App\Filesystem\DirectoryList;
 use Magento\Framework\Exception\FileSystemException;
 use Magento\Framework\File\Uploader;
@@ -55,10 +57,10 @@ abstract class AbstractUploadAction extends AbstractAjaxAction
     }
 
     /**
-     * @param string $folder Folder path related to the media directory
+     * @param string $folder  Folder path related to the media directory
      * @param array  $allowedExtensions
      * @return array|bool
-     * @throws \Exception
+     * @throws Exception
      */
     protected function save($folder, $allowedExtensions = [])
     {

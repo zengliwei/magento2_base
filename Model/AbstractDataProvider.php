@@ -15,6 +15,7 @@
  * OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
  * OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 namespace Common\Base\Model;
 
 use Magento\Framework\App\ObjectManager;
@@ -66,13 +67,9 @@ abstract class AbstractDataProvider extends ModifierPoolDataProvider
     }
 
     /**
-     * @param string $collectionName
      * @return void
      */
-    protected function initCollection(string $collectionName): void
-    {
-        $this->collection = ObjectManager::getInstance()->create($collectionName);
-    }
+    abstract protected function init();
 
     /**
      * @return array|null
@@ -101,7 +98,11 @@ abstract class AbstractDataProvider extends ModifierPoolDataProvider
     }
 
     /**
+     * @param string $collectionName
      * @return void
      */
-    abstract protected function init();
+    protected function initCollection(string $collectionName): void
+    {
+        $this->collection = ObjectManager::getInstance()->create($collectionName);
+    }
 }
