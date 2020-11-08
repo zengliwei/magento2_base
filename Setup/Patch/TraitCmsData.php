@@ -6,7 +6,9 @@ use Exception;
 use Magento\Cms\Model\Block;
 use Magento\Cms\Model\Page;
 use Magento\Cms\Model\ResourceModel\Block as ResourceBlock;
+use Magento\Cms\Model\ResourceModel\Block\Collection as BlockCollection;
 use Magento\Cms\Model\ResourceModel\Page as ResourcePage;
+use Magento\Cms\Model\ResourceModel\Page\Collection as PageCollection;
 
 trait TraitCmsData
 {
@@ -21,25 +23,19 @@ trait TraitCmsData
     private $resourcePage;
 
     /**
-     * @return ResourceBlock
+     * @return BlockCollection
      */
-    private function getResourceBlock()
+    private function createBlockCollection()
     {
-        if ($this->resourceBlock === null) {
-            $this->resourceBlock = $this->objectManager->get(ResourceBlock::class);
-        }
-        return $this->resourceBlock;
+        return $this->objectManager->create(BlockCollection::class);
     }
 
     /**
-     * @return ResourcePage
+     * @return PageCollection
      */
-    private function getResourcePage()
+    private function createPageCollection()
     {
-        if ($this->resourcePage === null) {
-            $this->resourcePage = $this->objectManager->get(ResourcePage::class);
-        }
-        return $this->resourcePage;
+        return $this->objectManager->create(PageCollection::class);
     }
 
     /**
@@ -53,6 +49,17 @@ trait TraitCmsData
     }
 
     /**
+     * @return ResourceBlock
+     */
+    private function getResourceBlock()
+    {
+        if ($this->resourceBlock === null) {
+            $this->resourceBlock = $this->objectManager->get(ResourceBlock::class);
+        }
+        return $this->resourceBlock;
+    }
+
+    /**
      * @param Page $page
      * @return void
      * @throws Exception
@@ -60,5 +67,16 @@ trait TraitCmsData
     private function savePage($page)
     {
         $this->getResourcePage()->save($page);
+    }
+
+    /**
+     * @return ResourcePage
+     */
+    private function getResourcePage()
+    {
+        if ($this->resourcePage === null) {
+            $this->resourcePage = $this->objectManager->get(ResourcePage::class);
+        }
+        return $this->resourcePage;
     }
 }
