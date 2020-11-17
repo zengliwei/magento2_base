@@ -14,23 +14,35 @@ trait TraitConfigData
     private $configStructure;
 
     /**
-     * @param string $section    e.g.
-     * @param array  $groupData  e.g. []
-     * @param string $website
-     * @param string $store
+     * $section = 'catalog';
+     * $groupData = [
+     *   'frontend' => [
+     *     'fields' => [
+     *       'flat_catalog_category' => ['value' => 1],
+     *       'flat_catalog_product' => ['value' => 1]
+     *     ]
+     *   ]
+     *   'review' => ['fields' => ['active' => ['inherit' => 1]]]
+     * ];
+     *
+     * @param string      $section
+     * @param array       $groupData
+     * @param string|null $website
+     * @param string|null $store
      * @throws Exception
      */
-    private function saveConfig($section, array $groupData, $website, $store)
+    private function saveConfig($section, array $groupData, $website = null, $store = null)
     {
+        $data = [
+            'section' => $section,
+            'groups'  => $groupData,
+            'website' => $website,
+            'store'   => $store
+        ];
+
         // filter methods are copied from \Magento\Config\Controller\Adminhtml\System\Config\Save
-        $data = $this->filterNodes(
-            [
-                'section' => $section,
-                'groups'  => $groupData,
-                'website' => $website,
-                'store'   => $store
-            ]
-        );
+        //$data = $this->filterNodes($data);
+
         /* @var $config Config */
         $config = $this->objectManager->create(Config::class, ['data' => $data]);
         $config->save();
@@ -58,7 +70,7 @@ trait TraitConfigData
     private function getConfigStructure()
     {
         if ($this->configStructure === null) {
-            $this->objectManager->get(Structure::class);
+            $this->configStructure = $this->objectManager->get(Structure::class);
         }
         return $this->configStructure;
     }
