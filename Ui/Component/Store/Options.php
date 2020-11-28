@@ -23,7 +23,7 @@ use Magento\Store\Ui\Component\Listing\Column\Store\Options as StoreOptions;
 /**
  * @package Common\Base
  * @author  Zengliwei <zengliwei@163.com>
- * @url https://github.com/zengliwei/magento2_banner
+ * @url https://github.com/zengliwei/magento2_base
  */
 class Options extends StoreOptions
 {

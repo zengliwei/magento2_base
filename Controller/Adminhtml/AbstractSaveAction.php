@@ -29,7 +29,7 @@ use Magento\Framework\Filesystem;
 /**
  * @package Common\Base
  * @author  Zengliwei <zengliwei@163.com>
- * @url https://github.com/zengliwei/magento2_banner
+ * @url https://github.com/zengliwei/magento2_base
  */
 abstract class AbstractSaveAction extends AbstractAction implements HttpPostActionInterface
 {

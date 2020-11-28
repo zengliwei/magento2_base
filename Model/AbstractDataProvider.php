@@ -18,19 +18,30 @@
 
 namespace Common\Base\Model;
 
+use Magento\Framework\App\Filesystem\DirectoryList;
 use Magento\Framework\App\ObjectManager;
 use Magento\Framework\App\Request\DataPersistorInterface;
 use Magento\Framework\App\ResourceConnection\SourceProviderInterface;
+use Magento\Framework\Exception\FileSystemException;
+use Magento\Framework\Exception\NoSuchEntityException;
+use Magento\Framework\Filesystem;
+use Magento\Framework\ObjectManagerInterface;
+use Magento\Store\Model\StoreManagerInterface;
 use Magento\Ui\DataProvider\Modifier\PoolInterface;
 use Magento\Ui\DataProvider\ModifierPoolDataProvider;
 
 /**
  * @package Common\Base
  * @author  Zengliwei <zengliwei@163.com>
- * @url https://github.com/zengliwei/magento2_banner
+ * @url https://github.com/zengliwei/magento2_base
  */
 abstract class AbstractDataProvider extends ModifierPoolDataProvider
 {
+    /**
+     * @var string
+     */
+    protected $baseMediaUrl;
+
     /**
      * @var SourceProviderInterface
      */
@@ -47,26 +58,51 @@ abstract class AbstractDataProvider extends ModifierPoolDataProvider
     protected $loadedData;
 
     /**
+     * @var Filesystem\Directory\WriteInterface
+     */
+    protected $mediaDirectory;
+
+    /**
+     * @var ObjectManagerInterface
+     */
+    protected $objectManager;
+
+    /**
+     * @var StoreManagerInterface
+     */
+    protected $storeManager;
+
+    /**
      * @param string                 $name
      * @param string                 $primaryFieldName
      * @param string                 $requestFieldName
      * @param DataPersistorInterface $dataPersistor
+     * @param StoreManagerInterface  $storeManager
+     * @param Filesystem             $filesystem
+     * @param ObjectManagerInterface $objectManager
      * @param array                  $meta
      * @param array                  $data
      * @param PoolInterface|null     $pool
+     * @throws FileSystemException
      */
     public function __construct(
         $name,
         $primaryFieldName,
         $requestFieldName,
         DataPersistorInterface $dataPersistor,
+        StoreManagerInterface $storeManager,
+        Filesystem $filesystem,
+        ObjectManagerInterface $objectManager,
         array $meta = [],
         array $data = [],
         PoolInterface $pool = null
     ) {
+        $this->dataPersistor = $dataPersistor;
+        $this->objectManager = $objectManager;
+        $this->storeManager = $storeManager;
         parent::__construct($name, $primaryFieldName, $requestFieldName, $meta, $data, $pool);
 
-        $this->dataPersistor = $dataPersistor;
+        $this->mediaDirectory = $filesystem->getDirectoryWrite(DirectoryList::MEDIA);
 
         $this->init();
     }
@@ -109,5 +145,42 @@ abstract class AbstractDataProvider extends ModifierPoolDataProvider
     protected function initCollection(string $collectionName): void
     {
         $this->collection = ObjectManager::getInstance()->create($collectionName);
+    }
+
+    /**
+     * @param array       $data
+     * @param string      $field
+     * @param string      $folder
+     * @param string|null $type
+     * @return array|null
+     * @throws NoSuchEntityException
+     */
+    protected function prepareFileData($data, $field, $folder, $type = null)
+    {
+        $filePath = $this->mediaDirectory->getAbsolutePath($folder . '/' . $data[$field]);
+        if (is_file($filePath)) {
+            return [
+                [
+                    'name' => $data[$field],
+                    'file' => $data[$field],
+                    'url'  => $this->getBaseMediaUrl() . $folder . '/' . $data[$field],
+                    'size' => filesize($filePath),
+                    'type' => $type ?: getImageSize($filePath)['mime']
+                ]
+            ];
+        }
+        return null;
+    }
+
+    /**
+     * @return string
+     * @throws NoSuchEntityException
+     */
+    protected function getBaseMediaUrl()
+    {
+        if ($this->baseMediaUrl === null) {
+            $this->baseMediaUrl = $this->storeManager->getStore()->getBaseUrl(DirectoryList::MEDIA);
+        }
+        return $this->baseMediaUrl;
     }
 }

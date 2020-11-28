@@ -18,11 +18,12 @@
 
 namespace Common\Base\Controller\Adminhtml;
 
+use Magento\Framework\App\Action\HttpGetActionInterface;
 use Magento\Framework\App\Action\HttpPostActionInterface;
 use Magento\Framework\Controller\Result\Json;
 use Magento\Framework\Controller\ResultFactory;
 
-abstract class AbstractAjaxAction extends AbstractAction implements HttpPostActionInterface
+abstract class AbstractAjaxAction extends AbstractAction implements HttpPostActionInterface, HttpGetActionInterface
 {
     /**
      * @param array $result

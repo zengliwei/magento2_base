@@ -16,55 +16,42 @@
  * OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-namespace Common\Base\Controller\Adminhtml;
+namespace Common\Base\Setup\Patch;
 
-use Magento\Backend\App\Action;
-use Magento\Backend\Model\View\Result\Page;
-use Magento\Backend\Model\View\Result\Redirect;
-use Magento\Framework\App\Action\HttpGetActionInterface;
-use Magento\Framework\App\Request\DataPersistorInterface;
-use Magento\Framework\Controller\ResultFactory;
+use Magento\Framework\App\Area;
+use Magento\Framework\Exception\AlreadyExistsException;
+use Magento\Widget\Model\ResourceModel\Widget\Instance as ResourceWidget;
+use Magento\Widget\Model\Widget\Instance as Widget;
 
 /**
  * @package Common\Base
  * @author  Zengliwei <zengliwei@163.com>
  * @url https://github.com/zengliwei/magento2_base
  */
-abstract class AbstractIndexAction extends Action implements HttpGetActionInterface
+trait TraitWidgetData
 {
     /**
-     * @var DataPersistorInterface
+     * @return ResourceWidget
      */
-    protected $dataPersistor;
-
-    /**
-     * @param IndexContext $context
-     */
-    public function __construct(IndexContext $context)
+    private function getResourceWidget()
     {
-        parent::__construct($context);
-
-        $this->dataPersistor = $context->getDataPersistor();
+        return $this->objectManager->get(ResourceWidget::class);
     }
 
     /**
-     * @param string $persistKey
-     * @param string $activeMenu
-     * @param string $pageTitle
-     * @return Page|Redirect
+     * @param array $data
+     * @return Widget
+     * @throws AlreadyExistsException
      */
-    protected function render(
-        string $persistKey,
-        string $activeMenu,
-        string $pageTitle
-    ) {
-        $this->dataPersistor->clear($persistKey);
-
-        /* @var $resultPage Page */
-        $resultPage = $this->resultFactory->create(ResultFactory::TYPE_PAGE);
-        $resultPage->setActiveMenu($activeMenu);
-        $resultPage->getConfig()->getTitle()->prepend($pageTitle);
-
-        return $resultPage;
+    private function createWidget(array $data)
+    {
+        return $this->state->emulateAreaCode(
+            Area::AREA_FRONTEND,
+            function () use ($data) {
+                $widget = $this->objectManager->create(Widget::class);
+                $this->getResourceWidget()->save($widget->setData($data));
+                return $widget;
+            }
+        );
     }
 }

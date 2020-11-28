@@ -25,7 +25,7 @@ use Magento\Framework\Api\SearchCriteriaInterface;
 /**
  * @package Common\Base
  * @author  Zengliwei <zengliwei@163.com>
- * @url https://github.com/zengliwei/magento2_banner
+ * @url https://github.com/zengliwei/magento2_base
  */
 trait AbstractCollection
 {

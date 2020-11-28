@@ -16,55 +16,49 @@
  * OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-namespace Common\Base\Controller\Adminhtml;
+namespace Common\Base\Block;
 
-use Magento\Backend\App\Action;
-use Magento\Backend\Model\View\Result\Page;
-use Magento\Backend\Model\View\Result\Redirect;
-use Magento\Framework\App\Action\HttpGetActionInterface;
-use Magento\Framework\App\Request\DataPersistorInterface;
-use Magento\Framework\Controller\ResultFactory;
+use Magento\Framework\App\Filesystem\DirectoryList;
+use Magento\Framework\Exception\NoSuchEntityException;
+use Magento\Framework\View\Element\Template;
 
 /**
  * @package Common\Base
  * @author  Zengliwei <zengliwei@163.com>
  * @url https://github.com/zengliwei/magento2_base
  */
-abstract class AbstractIndexAction extends Action implements HttpGetActionInterface
+abstract class MediaBlock extends Template
 {
-    /**
-     * @var DataPersistorInterface
-     */
-    protected $dataPersistor;
+    protected $defaultMediaFileId = 'Common_Base::images/default.jpg';
+    protected $mediaFolder = 'base';
 
     /**
-     * @param IndexContext $context
+     * @param Template\Context $context
+     * @param array            $data
      */
-    public function __construct(IndexContext $context)
-    {
-        parent::__construct($context);
-
-        $this->dataPersistor = $context->getDataPersistor();
+    public function __construct(
+        Template\Context $context,
+        array $data = []
+    ) {
+        parent::__construct($context, $data);
     }
 
     /**
-     * @param string $persistKey
-     * @param string $activeMenu
-     * @param string $pageTitle
-     * @return Page|Redirect
+     * @param string      $mediaFile
+     * @param string|null $mediaFolder
+     * @return string
+     * @throws NoSuchEntityException
      */
-    protected function render(
-        string $persistKey,
-        string $activeMenu,
-        string $pageTitle
-    ) {
-        $this->dataPersistor->clear($persistKey);
-
-        /* @var $resultPage Page */
-        $resultPage = $this->resultFactory->create(ResultFactory::TYPE_PAGE);
-        $resultPage->setActiveMenu($activeMenu);
-        $resultPage->getConfig()->getTitle()->prepend($pageTitle);
-
-        return $resultPage;
+    public function getMediaUrl($mediaFile, $mediaFolder = null)
+    {
+        if ($mediaFile) {
+            $mediaFolder = $mediaFolder ?: $this->mediaFolder;
+            $mediaDirectory = $this->_filesystem->getDirectoryRead(DirectoryList::MEDIA);
+            if (is_file($mediaDirectory->getAbsolutePath($mediaFolder . '/' . $mediaFile))) {
+                return $this->_storeManager->getStore()->getBaseUrl(DirectoryList::MEDIA) .
+                    $mediaFolder . '/' . $mediaFile;
+            }
+        }
+        return $this->getViewFileUrl($this->defaultMediaFileId);
     }
 }
