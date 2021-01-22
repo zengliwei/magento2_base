@@ -18,6 +18,7 @@
 
 namespace Common\Base\Setup\Patch;
 
+use Magento\Eav\Model\Config;
 use Magento\Eav\Setup\EavSetup;
 use Magento\Eav\Setup\EavSetupFactory;
 use Magento\Framework\App\State;
@@ -32,6 +33,11 @@ use Magento\Framework\Setup\Patch\DataPatchInterface;
  */
 abstract class AbstractData implements DataPatchInterface
 {
+    /**
+     * @var Config
+     */
+    protected $eavConfig;
+
     /**
      * @var EavSetup
      */
@@ -53,17 +59,20 @@ abstract class AbstractData implements DataPatchInterface
     protected $state;
 
     /**
+     * @param Config                   $eavConfig
      * @param EavSetupFactory          $eavSetupFactory
      * @param ModuleDataSetupInterface $moduleDataSetup
      * @param ObjectManagerInterface   $objectManager
      * @param State                    $state
      */
     public function __construct(
+        Config $eavConfig,
         EavSetupFactory $eavSetupFactory,
         ModuleDataSetupInterface $moduleDataSetup,
         ObjectManagerInterface $objectManager,
         State $state
     ) {
+        $this->eavConfig = $eavConfig;
         $this->eavSetup = $eavSetupFactory->create(['setup' => $moduleDataSetup]);
         $this->moduleDataSetup = $moduleDataSetup;
         $this->objectManager = $objectManager;
