@@ -63,7 +63,7 @@ abstract class AbstractIndexAction extends Action implements HttpGetActionInterf
         /* @var $resultPage Page */
         $resultPage = $this->resultFactory->create(ResultFactory::TYPE_PAGE);
         $resultPage->setActiveMenu($activeMenu);
-        $resultPage->getConfig()->getTitle()->prepend($pageTitle);
+        $resultPage->getConfig()->getTitle()->prepend(__($pageTitle));
 
         return $resultPage;
     }

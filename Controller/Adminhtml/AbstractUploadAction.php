@@ -23,7 +23,7 @@ use Magento\Framework\App\Filesystem\DirectoryList;
 use Magento\Framework\Exception\FileSystemException;
 use Magento\Framework\File\Uploader;
 use Magento\Framework\File\UploaderFactory;
-use Magento\Framework\Filesystem;
+use Magento\Framework\Filesystem\Directory\WriteInterface;
 use Magento\Store\Model\StoreManagerInterface;
 
 /**
@@ -34,19 +34,19 @@ use Magento\Store\Model\StoreManagerInterface;
 abstract class AbstractUploadAction extends AbstractAjaxAction
 {
     /**
-     * @var Filesystem\Directory\WriteInterface
+     * @var WriteInterface
      */
-    protected $mediaDirectory;
+    protected WriteInterface $mediaDirectory;
 
     /**
      * @var UploaderFactory
      */
-    protected $uploaderFactory;
+    protected UploaderFactory $uploaderFactory;
 
     /**
      * @var StoreManagerInterface
      */
-    protected $storeManager;
+    protected StoreManagerInterface $storeManager;
 
     /**
      * @param UploadContext $context
