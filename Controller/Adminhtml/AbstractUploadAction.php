@@ -64,10 +64,11 @@ abstract class AbstractUploadAction extends AbstractAjaxAction
     /**
      * @param string $folder  Folder path related to the media directory
      * @param array  $allowedExtensions
+     * @param bool   $keepPath
      * @return array|bool
      * @throws Exception
      */
-    protected function save($folder, $allowedExtensions = [])
+    protected function save($folder, $allowedExtensions = [], $keepPath = false)
     {
         $fieldName = $this->getRequest()->getParam('param_name');
 
@@ -78,7 +79,9 @@ abstract class AbstractUploadAction extends AbstractAjaxAction
             ->setAllowedExtensions($allowedExtensions)
             ->save($this->mediaDirectory->getAbsolutePath($folder));
 
-        unset($result['path']);
+        if (!$keepPath) {
+            unset($result['path']);
+        }
         $result['url'] = $this->storeManager->getStore()->getBaseUrl(DirectoryList::MEDIA)
             . $folder . '/' . $result['file'];
 
