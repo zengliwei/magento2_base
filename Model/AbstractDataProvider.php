@@ -21,10 +21,10 @@ namespace Common\Base\Model;
 use Magento\Framework\App\Filesystem\DirectoryList;
 use Magento\Framework\App\ObjectManager;
 use Magento\Framework\App\Request\DataPersistorInterface;
-use Magento\Framework\App\ResourceConnection\SourceProviderInterface;
 use Magento\Framework\Exception\FileSystemException;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\Filesystem;
+use Magento\Framework\Filesystem\Directory\WriteInterface;
 use Magento\Framework\ObjectManagerInterface;
 use Magento\Store\Model\StoreManagerInterface;
 use Magento\Ui\DataProvider\Modifier\PoolInterface;
@@ -37,40 +37,14 @@ use Magento\Ui\DataProvider\ModifierPoolDataProvider;
  */
 abstract class AbstractDataProvider extends ModifierPoolDataProvider
 {
-    /**
-     * @var string
-     */
-    protected $baseMediaUrl;
+    protected DataPersistorInterface $dataPersistor;
+    protected WriteInterface $mediaDirectory;
+    protected ObjectManagerInterface $objectManager;
+    protected StoreManagerInterface $storeManager;
 
-    /**
-     * @var SourceProviderInterface
-     */
-    protected $collection;
-
-    /**
-     * @var DataPersistorInterface
-     */
-    protected $dataPersistor;
-
-    /**
-     * @var array
-     */
-    protected $loadedData;
-
-    /**
-     * @var Filesystem\Directory\WriteInterface
-     */
-    protected $mediaDirectory;
-
-    /**
-     * @var ObjectManagerInterface
-     */
-    protected $objectManager;
-
-    /**
-     * @var StoreManagerInterface
-     */
-    protected $storeManager;
+    protected string $persistKey;
+    protected ?string $baseMediaUrl;
+    protected ?array $loadedData = null;
 
     /**
      * @param string                 $name

@@ -31,6 +31,7 @@ trait OptionsTree
     protected string $fieldParentId = 'parent_id';
     protected string $fieldTitle = 'title';
     protected string $fieldValue = 'id';
+    protected ?string $filterField = null;
 
     /**
      * @param AbstractCollection $collection
@@ -81,12 +82,19 @@ trait OptionsTree
             $level++;
             $lastIndex = count($itemGroups[$parentId]) - 1;
             foreach ($itemGroups[$parentId] as $i => $item) {
-                $options[] = [
+                $option = [
                     'label' => $this->getOptionLabel($item, $level, $lastIndex == $i),
                     'value' => $item->getDataByKey($this->fieldValue)
                 ];
+                if ($this->filterField !== null) {
+                    $option[$this->filterField] = $item->getDataByKey($this->filterField);
+                }
+                $options[] = $option;
                 if (isset($itemGroups[$parentId])) {
-                    $options = array_merge($options, $this->collectOptions($itemGroups, $item->getId(), $level));
+                    $options = array_merge(
+                        $options,
+                        $this->collectOptions($itemGroups, $item->getId(), $level)
+                    );
                 }
             }
         }
