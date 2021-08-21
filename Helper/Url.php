@@ -64,26 +64,20 @@ class Url
     }
 
     /**
-     * @param null $routePath
-     * @param null $routeParams
-     * @return string
+     * @return UrlInterface
      * @throws Exception
      */
-    public function getStorefrontUrl($routePath = null, $routeParams = null)
+    public function getFrontendBuilder()
     {
-        return $this->getUrlBuilder(Area::AREA_FRONTEND, \Magento\Framework\Url::class)
-            ->getUrl($routePath, $routeParams);
+        return $this->getUrlBuilder(Area::AREA_FRONTEND, \Magento\Framework\Url::class);
     }
 
     /**
-     * @param null $routePath
-     * @param null $routeParams
-     * @return string
+     * @return UrlInterface
      * @throws Exception
      */
-    public function getAdminPanelUrl($routePath = null, $routeParams = null)
+    public function getAdminhtmlBuilder()
     {
-        return $this->getUrlBuilder(Area::AREA_ADMINHTML, \Magento\Backend\Model\Url::class)
-            ->getUrl($routePath, $routeParams);
+        return $this->getUrlBuilder(Area::AREA_ADMINHTML, \Magento\Backend\Model\Url::class);
     }
 }

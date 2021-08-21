@@ -82,8 +82,13 @@ abstract class AbstractUploadAction extends AbstractAjaxAction
         if (!$keepPath) {
             unset($result['path']);
         }
+
         $result['url'] = $this->storeManager->getStore()->getBaseUrl(DirectoryList::MEDIA)
             . $folder . '/' . $result['file'];
+
+        if (!empty($result['file'])) {
+            $result['name'] = $result['file'];
+        }
 
         return $result;
     }

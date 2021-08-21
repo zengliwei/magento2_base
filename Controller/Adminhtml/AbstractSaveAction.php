@@ -33,15 +33,9 @@ use Magento\Framework\Filesystem;
  */
 abstract class AbstractSaveAction extends AbstractAction implements HttpPostActionInterface
 {
-    /**
-     * @var DataPersistorInterface
-     */
-    protected $dataPersistor;
-
-    /**
-     * @var Filesystem
-     */
-    protected $filesystem;
+    protected DataPersistorInterface $dataPersistor;
+    protected Filesystem $filesystem;
+    protected array $mediaFields = [];
 
     /**
      * @param SaveContext $context
@@ -108,6 +102,11 @@ abstract class AbstractSaveAction extends AbstractAction implements HttpPostActi
     {
         if (isset($data['id']) && !$data['id']) {
             unset($data['id']);
+        }
+        foreach ($this->mediaFields as $field) {
+            if (!empty($data[$field])) {
+                $data[$field] = $data[$field][0]['file'];
+            }
         }
         return $data;
     }

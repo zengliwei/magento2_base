@@ -46,20 +46,9 @@ use Magento\Store\Model\StoreManagerInterface;
  */
 class UploadContext extends Context
 {
-    /**
-     * @var Filesystem
-     */
-    protected $filesystem;
-
-    /**
-     * @var StoreManagerInterface
-     */
-    protected $storeManager;
-
-    /**
-     * @var UploaderFactory
-     */
-    protected $uploaderFactory;
+    protected Filesystem $filesystem;
+    protected StoreManagerInterface $storeManager;
+    protected UploaderFactory $uploaderFactory;
 
     public function __construct(
         Filesystem $filesystem,
