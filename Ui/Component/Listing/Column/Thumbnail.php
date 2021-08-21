@@ -45,6 +45,7 @@ class Thumbnail extends Column
     ) {
         $this->assetRepository = $assetRepository;
         $this->urlHelper = $urlHelper;
+
         parent::__construct($context, $uiComponentFactory, $components, $data);
     }
 
@@ -55,7 +56,7 @@ class Thumbnail extends Column
     {
         if (isset($dataSource['data']['items'])) {
             $baseUrl = $this->urlHelper->getFrontendBuilder()->getBaseUrl(['_type' => UrlInterface::URL_TYPE_MEDIA]);
-            $defaultUrl = $this->assetRepository->createAsset('Common_Brand::images/default.jpg')->getUrl();
+            $defaultUrl = $this->assetRepository->createAsset($this->getData('config/default_value'))->getUrl();
             $fieldName = $this->getDataByKey('name');
             $folder = $this->getData('config/folder');
             foreach ($dataSource['data']['items'] as &$item) {
