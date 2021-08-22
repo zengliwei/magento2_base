@@ -1,5 +1,5 @@
 {
-    "name": "common/module-magento2-base",
+    "name": "zengliwei/module-magento2-base",
     "description": "A Magento 2 module that contains base functions for other common modules",
     "type": "magento2-module",
     "version": "1.0.0",
