@@ -42,8 +42,10 @@ abstract class AbstractDataProvider extends ModifierPoolDataProvider
     protected ObjectManagerInterface $objectManager;
     protected StoreManagerInterface $storeManager;
 
+    protected array $mediaFields = [];
+    protected string $mediaFolder = '';
     protected string $persistKey;
-    protected ?string $baseMediaUrl;
+    protected ?string $baseMediaUrl = null;
     protected ?array $loadedData = null;
 
     /**
@@ -103,6 +105,7 @@ abstract class AbstractDataProvider extends ModifierPoolDataProvider
 
         $data = $this->dataPersistor->get($this->persistKey);
         if (!empty($data)) {
+            $data = $this->prepareMediaFields($data);
             $model = $this->collection->getNewEmptyItem();
             $model->setData($data);
             $this->loadedData[$model->getId()] = ['data' => $model->getData()];
@@ -119,6 +122,26 @@ abstract class AbstractDataProvider extends ModifierPoolDataProvider
     protected function initCollection(string $collectionName): void
     {
         $this->collection = ObjectManager::getInstance()->create($collectionName);
+    }
+
+    /**
+     * @param array $data
+     * @return array
+     * @throws NoSuchEntityException
+     */
+    protected function prepareMediaFields($data)
+    {
+        foreach ($this->mediaFields as $mediaField) {
+            if (!empty($data[$mediaField]) && !is_array($data[$mediaField])) {
+                $data[$mediaField] = $this->prepareFileData(
+                    $data,
+                    $mediaField,
+                    $this->mediaFolder,
+                    null
+                );
+            }
+        }
+        return $data;
     }
 
     /**
