@@ -1,0 +1,21 @@
+{
+    "name": "common/module-magento2-base",
+    "description": "A Magento 2 module that contains base functions for other common modules",
+    "type": "magento2-module",
+    "version": "1.0.0",
+    "license": [
+        "MIT"
+    ],
+    "require": {
+        "php": "~7.2.0||~7.3.0",
+        "magento/framework": "~100.0.4"
+    },
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Common\\Base\\": ""
+        }
+    }
+}
