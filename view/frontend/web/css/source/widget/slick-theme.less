@@ -1,0 +1,261 @@
+/*
+ * Copyright (c) 2020 Zengliwei
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
+ * documentation files (the "Software"), to deal in the Software without restriction, including without limitation the
+ * rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to
+ * permit persons to whom the Software is furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the
+ * Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+ * WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFINGEMENT. IN NO EVENT SHALL THE AUTHORS
+ * OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+ * OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
+@charset "UTF-8";
+
+// Default Variables
+@slick-loader-path: '../CrazyCat_Banner/';
+@slick-arrow-color: white;
+@slick-dot-color: white;
+@slick-dot-color-active: @slick-dot-color;
+@slick-prev-character: '<';
+@slick-next-character: '>';
+@slick-opacity-default: .6;
+@slick-opacity-on-hover: .8;
+@slick-opacity-not-active: .25;
+
+
+/* Wrapper */
+
+.block-carousel {
+    margin-bottom: 16px;
+}
+
+.block-promo.home-main {
+    display: none;
+}
+
+
+/* Slider */
+
+.slick-slider {
+
+    .slick-loading .slick-list {
+        background: #fff url('@{slick-loader-path}images/ajax-loader.gif') center center no-repeat;
+    }
+
+    .slick-list {
+        z-index: 1;
+
+        .slick-slide {
+            position: relative;
+
+            .image {
+                position: relative;
+                z-index: 1;
+            }
+
+            .video {
+                text-align: center;
+            }
+
+            .content {
+                background: rgba(255, 255, 255, .9);
+                box-sizing: border-box;
+                padding: 25px 35px 35px;
+                position: absolute;
+                right: 68px;
+                top: 40px;
+                width: 40%;
+                z-index: 2;
+
+                .title {
+                    display: block;
+                    font-weight: 300;
+                    font-size: 3.2rem;
+                    line-height: 1.2;
+                }
+
+                .info {
+                    display: block;
+                    font-weight: 300;
+                    font-size: 2.2rem;
+                    margin-bottom: 20px;
+                }
+
+                .button {
+                    background: #1979c3;
+                    border: 1px solid #1979c3;
+                    border-radius: 3px;
+                    color: #fff;
+                    cursor: pointer;
+                    display: inline-block;
+                    font: 1.4rem/1.5 'Helvetica Neue', Helvetica, Arial, sans-serif;
+                    font-weight: 700;
+                    margin: 25px 0 0;
+                    padding: 10px 15px;
+                }
+            }
+        }
+    }
+
+    button {
+        background: transparent;
+        border: 0;
+        border-radius: 0;
+        box-shadow: none;
+        color: transparent;
+        cursor: pointer;
+        display: block;
+        font-size: 0;
+        line-height: 0;
+        outline: none;
+        padding: 0;
+    }
+
+
+    /* Arrows */
+
+    .slick-prev,
+    .slick-next {
+        height: 50px;
+        line-height: 50px;
+        outline: none;
+        padding: 0;
+        position: absolute;
+        text-align: center;
+        top: 50%;
+        transform: translate(0, -50%);
+        width: 36px;
+        z-index: 2;
+        -webkit-transform: translate(0, -50%);
+        -ms-transform: translate(0, -50%);
+
+        &:hover, &:focus {
+            background: transparent;
+            border: 0;
+            color: transparent;
+            outline: none;
+
+            &:before {
+                opacity: @slick-opacity-on-hover;
+            }
+        }
+
+        &:before {
+            background: #fff;
+            bottom: 0;
+            content: '';
+            display: block;
+            left: 0;
+            opacity: @slick-opacity-default;
+            position: absolute;
+            right: 0;
+            top: 0;
+        }
+
+        &:after {
+            color: @slick-arrow-color;
+            font-size: 20px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        &.slick-disabled:after {
+            opacity: @slick-opacity-not-active;
+        }
+    }
+
+    .slick-prev {
+        left: 0;
+
+        [dir="rtl"] & {
+            left: auto;
+            right: 0;
+        }
+
+        &:after {
+            content: @slick-prev-character;
+
+            [dir="rtl"] & {
+                content: @slick-next-character;
+            }
+        }
+    }
+
+    .slick-next {
+        right: 0;
+
+        [dir="rtl"] & {
+            left: 0;
+            right: auto;
+        }
+
+        &:after {
+            content: @slick-next-character;
+
+            [dir="rtl"] & {
+                content: @slick-prev-character;
+            }
+        }
+    }
+
+
+    /* Dots */
+
+    .slick-dotted .slick-slider {
+        margin-bottom: 30px;
+    }
+
+    .slick-dots {
+        bottom: 25px;
+        display: block;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        position: absolute;
+        text-align: center;
+        width: 100%;
+        z-index: 2;
+
+        li {
+            position: relative;
+            display: inline-block;
+            margin: 0 5px;
+            padding: 0;
+            cursor: pointer;
+
+            button {
+                &:hover, &:focus {
+                    outline: none;
+
+                    &:before {
+                        opacity: @slick-opacity-on-hover;
+                    }
+                }
+
+                &:before {
+                    background: @slick-dot-color;
+                    border-radius: 5px;
+                    box-sizing: border-box;
+                    content: '';
+                    display: block;
+                    height: 10px;
+                    opacity: @slick-opacity-not-active;
+                    text-align: center;
+                    transition: width .2s;
+                    width: 10px;
+                }
+            }
+
+            &.slick-active button:before {
+                color: @slick-dot-color-active;
+                opacity: @slick-opacity-default;
+                width: 20px;
+            }
+        }
+    }
+}
