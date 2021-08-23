@@ -16,14 +16,14 @@
  * OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-namespace Common\Base\Setup\Patch;
+namespace CrazyCat\Base\Setup\Patch;
 
 use Exception;
 use Magento\Config\Model\Config;
 use Magento\Config\Model\Config\Structure;
 
 /**
- * @package Common\Base
+ * @package CrazyCat\Base
  * @author  Zengliwei <zengliwei@163.com>
  * @url https://github.com/zengliwei/magento2_base
  */

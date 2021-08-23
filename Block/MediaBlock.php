@@ -16,20 +16,20 @@
  * OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-namespace Common\Base\Block;
+namespace CrazyCat\Base\Block;
 
 use Magento\Framework\App\Filesystem\DirectoryList;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\View\Element\Template;
 
 /**
- * @package Common\Base
+ * @package CrazyCat\Base
  * @author  Zengliwei <zengliwei@163.com>
  * @url https://github.com/zengliwei/magento2_base
  */
 abstract class MediaBlock extends Template
 {
-    protected $defaultMediaFileId = 'Common_Base::images/default.jpg';
+    protected $defaultMediaFileId = 'CrazyCat_Base::images/default.jpg';
     protected $mediaFolder = 'base';
 
     /**

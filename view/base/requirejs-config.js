@@ -18,7 +18,7 @@ let config = {
     'config': {
         'mixins': {
             'jquery/ui-modules/widget': {
-                'Common_Base/js/jquery/ui-modules/widget-mixin': true
+                'CrazyCat_Base/js/jquery/ui-modules/widget-mixin': true
             }
         }
     }

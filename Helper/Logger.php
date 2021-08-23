@@ -16,14 +16,14 @@
  * OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-namespace Common\Base\Helper;
+namespace CrazyCat\Base\Helper;
 
 use Magento\Framework\Logger\Handler\Base;
 use Magento\Framework\Logger\Monolog;
 use Magento\Framework\ObjectManagerInterface;
 
 /**
- * @package Common\Base
+ * @package CrazyCat\Base
  * @author  Zengliwei <zengliwei@163.com>
  * @url https://github.com/zengliwei/magento2_base
  */

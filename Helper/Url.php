@@ -16,7 +16,7 @@
  * OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-namespace Common\Base\Helper;
+namespace CrazyCat\Base\Helper;
 
 use Exception;
 use Magento\Framework\App\Area;
@@ -25,7 +25,7 @@ use Magento\Framework\Url\ScopeResolverInterface;
 use Magento\Framework\UrlInterface;
 
 /**
- * @package Common\Base
+ * @package CrazyCat\Base
  * @author  Zengliwei <zengliwei@163.com>
  * @url https://github.com/zengliwei/magento2_base
  */

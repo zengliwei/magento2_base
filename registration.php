@@ -18,4 +18,4 @@
 
 use Magento\Framework\Component\ComponentRegistrar;
 
-ComponentRegistrar::register(ComponentRegistrar::MODULE, 'Common_Base', __DIR__);
+ComponentRegistrar::register(ComponentRegistrar::MODULE, 'CrazyCat_Base', __DIR__);

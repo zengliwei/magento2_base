@@ -16,9 +16,9 @@
  * OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-namespace Common\Base\Ui\Component\Listing\Column;
+namespace CrazyCat\Base\Ui\Component\Listing\Column;
 
-use Common\Base\Helper\Url as UrlHelper;
+use CrazyCat\Base\Helper\Url as UrlHelper;
 use Magento\Framework\UrlInterface;
 use Magento\Framework\View\Asset\Repository as AssetRepository;
 use Magento\Framework\View\Element\UiComponent\ContextInterface;
@@ -26,7 +26,7 @@ use Magento\Framework\View\Element\UiComponentFactory;
 use Magento\Ui\Component\Listing\Columns\Column;
 
 /**
- * @package Common\Base
+ * @package CrazyCat\Base
  * @author  Zengliwei <zengliwei@163.com>
  * @url https://github.com/zengliwei/magento2_base
  */

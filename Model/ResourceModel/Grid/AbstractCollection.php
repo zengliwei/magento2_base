@@ -16,14 +16,14 @@
  * OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-namespace Common\Base\Model\ResourceModel\Grid;
+namespace CrazyCat\Base\Model\ResourceModel\Grid;
 
 use Magento\Framework\Api\ExtensibleDataInterface;
 use Magento\Framework\Api\Search\AggregationInterface;
 use Magento\Framework\Api\SearchCriteriaInterface;
 
 /**
- * @package Common\Base
+ * @package CrazyCat\Base
  * @author  Zengliwei <zengliwei@163.com>
  * @url https://github.com/zengliwei/magento2_base
  */

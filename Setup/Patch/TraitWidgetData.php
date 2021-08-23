@@ -16,7 +16,7 @@
  * OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-namespace Common\Base\Setup\Patch;
+namespace CrazyCat\Base\Setup\Patch;
 
 use Magento\Framework\App\Area;
 use Magento\Framework\Exception\AlreadyExistsException;
@@ -24,7 +24,7 @@ use Magento\Widget\Model\ResourceModel\Widget\Instance as ResourceWidget;
 use Magento\Widget\Model\Widget\Instance as Widget;
 
 /**
- * @package Common\Base
+ * @package CrazyCat\Base
  * @author  Zengliwei <zengliwei@163.com>
  * @url https://github.com/zengliwei/magento2_base
  */
