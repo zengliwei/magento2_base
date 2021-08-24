@@ -47,10 +47,26 @@ trait OptionsTree
             }
             $itemGroups[$item->getDataByKey($this->fieldParentId)][] = $item;
         }
-        return array_merge(
-            [['label' => '[ root ]', 'value' => 0]],
-            $this->collectOptions($itemGroups)
-        );
+        $options = $this->collectOptions($itemGroups);
+        if ($this->filterField === null) {
+            return array_merge([['label' => '[ root ]', 'value' => '0']], $options);
+        }
+
+        $optionGroups = [];
+        foreach ($options as $option) {
+            if (!isset($optionGroups[$option[$this->filterField]])) {
+                $optionGroups[$option[$this->filterField]] = [];
+            }
+            $optionGroups[$option[$this->filterField]][] = $option;
+        }
+        $options = [];
+        foreach ($optionGroups as $filterIndex => $group) {
+            $options[] = ['label' => '[ root ]', 'value' => '0', $this->filterField => (string)$filterIndex];
+            foreach ($group as $option) {
+                $options[] = $option;
+            }
+        }
+        return $options;
     }
 
     /**
@@ -84,7 +100,7 @@ trait OptionsTree
             foreach ($itemGroups[$parentId] as $i => $item) {
                 $option = [
                     'label' => $this->getOptionLabel($item, $level, $lastIndex == $i),
-                    'value' => $item->getDataByKey($this->fieldValue)
+                    'value' => (string)$item->getDataByKey($this->fieldValue)
                 ];
                 if ($this->filterField !== null) {
                     $option[$this->filterField] = $item->getDataByKey($this->filterField);
