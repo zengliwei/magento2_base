@@ -37,10 +37,7 @@ abstract class AbstractStoreModel extends AbstractModel
     public const STORE_ID = 'store_id';
     public const STORE_IDS = 'store_ids';
 
-    /**
-     * @var StoreManagerInterface
-     */
-    protected $storeManager;
+    protected StoreManagerInterface $storeManager;
 
     /**
      * @param StoreManagerInterface $storeManager

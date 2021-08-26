@@ -66,6 +66,8 @@ abstract class AbstractSaveAction extends AbstractAction implements HttpPostActi
 
         $post = $this->getRequest()->getPostValue();
         if ($post) {
+            $storeId = $this->getRequest()->getParam('store', 0);
+
             try {
                 [$model, $resourceModel] = $this->loadModel($modelName);
             } catch (Exception $e) {
@@ -74,7 +76,8 @@ abstract class AbstractSaveAction extends AbstractAction implements HttpPostActi
             }
 
             try {
-                $model->addData($this->processData($post['data']));
+                $model->setStoreId($storeId)
+                    ->addData($this->processData($post['data']));
                 $resourceModel->save($model);
                 $this->messageManager->addSuccessMessage(__($successMessage));
                 $this->dataPersistor->clear($persistKey);
@@ -88,7 +91,7 @@ abstract class AbstractSaveAction extends AbstractAction implements HttpPostActi
             }
 
             $this->dataPersistor->set($persistKey, $post['data']);
-            return $resultRedirect->setPath('*/*/edit', ['id' => $model->getId()]);
+            return $resultRedirect->setPath('*/*/edit', ['id' => $model->getId(), 'store' => $storeId]);
         }
 
         return $resultRedirect->setPath('*/*/');

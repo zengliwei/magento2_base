@@ -21,6 +21,7 @@ namespace CrazyCat\Base\Model;
 use Magento\Framework\App\Filesystem\DirectoryList;
 use Magento\Framework\App\ObjectManager;
 use Magento\Framework\App\Request\DataPersistorInterface;
+use Magento\Framework\App\RequestInterface;
 use Magento\Framework\Exception\FileSystemException;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\Filesystem;
@@ -40,13 +41,15 @@ abstract class AbstractDataProvider extends ModifierPoolDataProvider
     protected DataPersistorInterface $dataPersistor;
     protected WriteInterface $mediaDirectory;
     protected ObjectManagerInterface $objectManager;
+    protected RequestInterface $request;
     protected StoreManagerInterface $storeManager;
 
     protected array $mediaFields = [];
     protected string $mediaFolder = '';
-    protected string $persistKey;
     protected ?string $baseMediaUrl = null;
     protected ?array $loadedData = null;
+    protected string $persistKey;
+    protected string $requestScopeFieldName = 'store';
 
     /**
      * @param string                 $name
@@ -62,6 +65,7 @@ abstract class AbstractDataProvider extends ModifierPoolDataProvider
      * @throws FileSystemException
      */
     public function __construct(
+        RequestInterface $request,
         $name,
         $primaryFieldName,
         $requestFieldName,
@@ -75,6 +79,7 @@ abstract class AbstractDataProvider extends ModifierPoolDataProvider
     ) {
         $this->dataPersistor = $dataPersistor;
         $this->objectManager = $objectManager;
+        $this->request = $request;
         $this->storeManager = $storeManager;
         parent::__construct($name, $primaryFieldName, $requestFieldName, $meta, $data, $pool);
 
@@ -87,6 +92,31 @@ abstract class AbstractDataProvider extends ModifierPoolDataProvider
      * @return void
      */
     abstract protected function init();
+
+    /**
+     * @inheritDoc
+     */
+    public function getMeta()
+    {
+        $this->meta['general'] = [
+            'children' => [
+                $this->requestScopeFieldName => [
+                    'arguments' => [
+                        'data' => [
+                            'config' => [
+                                'componentType' => 'field',
+                                'formElement'   => 'hidden',
+                                'dataType'      => 'int',
+                                'source'        => 'data',
+                                'value'         => $this->request->getParam($this->requestScopeFieldName, null)
+                            ]
+                        ]
+                    ]
+                ]
+            ]
+        ];
+        return parent::getMeta();
+    }
 
     /**
      * @return array|null
