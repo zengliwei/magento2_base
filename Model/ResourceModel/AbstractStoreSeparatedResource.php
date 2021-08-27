@@ -1,6 +1,6 @@
 <?php
-/*
- * Copyright (c) 2020 Zengliwei
+/**
+ * Copyright (c) 2021 Zengliwei. All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
  * documentation files (the "Software"), to deal in the Software without restriction, including without limitation the
@@ -32,6 +32,23 @@ abstract class AbstractStoreSeparatedResource extends AbstractDb
     protected string $storeTable;
     protected string $storeTableKey;
     protected array $storeFields;
+
+    /**
+     * {@inheritDoc}
+     */
+    protected function _init($mainTable, $idFieldName)
+    {
+        parent::_init($mainTable, $idFieldName);
+
+        $this->storeFields = [];
+        $conn = $this->getConnection();
+        $skippedFields = [$this->storeTableKey, 'store_id'];
+        foreach (array_keys($conn->describeTable($conn->getTableName($this->storeTable))) as $field) {
+            if (!in_array($field, $skippedFields)) {
+                $this->storeFields[] = $field;
+            }
+        }
+    }
 
     /**
      * {@inheritDoc}
