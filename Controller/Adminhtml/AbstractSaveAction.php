@@ -109,6 +109,8 @@ abstract class AbstractSaveAction extends AbstractAction implements HttpPostActi
         foreach ($this->mediaFields as $field) {
             if (!empty($data[$field])) {
                 $data[$field] = $data[$field][0]['file'];
+            } else {
+                $data[$field] = null;
             }
         }
         return $data;
