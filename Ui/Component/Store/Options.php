@@ -32,7 +32,7 @@ class Options extends StoreOptions
     /**
      * @inheritDoc
      */
-    protected function generateCurrentOptions()
+    protected function generateCurrentOptions(): void
     {
         $this->currentOptions['All Store Views'] = [
             'label' => __('All Store Views'),
