@@ -24,7 +24,10 @@ use Magento\Framework\App\Action\HttpPostActionInterface;
 use Magento\Framework\App\Request\DataPersistorInterface;
 use Magento\Framework\Controller\ResultInterface;
 use Magento\Framework\Exception\LocalizedException;
+use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\Filesystem;
+use Magento\Framework\Model\AbstractModel;
+use Magento\Framework\Model\ResourceModel\Db\AbstractDb;
 
 /**
  * @package CrazyCat\Base
@@ -69,7 +72,15 @@ abstract class AbstractSaveAction extends AbstractAction implements HttpPostActi
             $storeId = $this->getRequest()->getParam('store', 0);
 
             try {
-                [$model, $resourceModel] = $this->loadModel($modelName);
+                /* @var $model AbstractModel */
+                /* @var $resourceModel AbstractDb */
+                [$model, $resourceModel] = $this->getModels($modelName);
+                if (!empty($post['data']['id'])) {
+                    $resourceModel->load($model, $post['data']['id']);
+                    if (!$model->getId()) {
+                        throw new NoSuchEntityException();
+                    }
+                }
             } catch (Exception $e) {
                 $this->messageManager->addErrorMessage(__($noEntityMessage));
                 return $resultRedirect->setPath('*/*/');
