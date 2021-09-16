@@ -41,8 +41,9 @@ abstract class AbstractAction extends Action
         /* @var $resourceModel AbstractDb */
         [$model, $resourceModel] = $this->getModels($modelName);
 
-        if (($id = $this->getRequest()->getParam('id'))) {
-            $resourceModel->load($model, $id);
+        $post = $this->getRequest()->getPostValue();
+        if (!empty($post['data']['id'])) {
+            $resourceModel->load($model, $post['data']['id']);
             if (!$model->getId()) {
                 throw new NoSuchEntityException();
             }
