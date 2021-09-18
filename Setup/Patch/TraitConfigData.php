@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2021 Zengliwei. All rights reserved.
+ * Copyright (c) Zengliwei. All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
  * documentation files (the "Software"), to deal in the Software without restriction, including without limitation the
@@ -64,7 +64,7 @@ trait TraitConfigData
         // filter methods are copied from \Magento\Config\Controller\Adminhtml\System\Config\Save
         //$data = $this->filterNodes($data);
 
-        /* @var $config Config */
+        /** @var $config Config */
         $config = $this->objectManager->create(Config::class, ['data' => $data]);
         $config->save();
     }

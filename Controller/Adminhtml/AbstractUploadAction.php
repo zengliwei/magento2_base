@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2021 Zengliwei. All rights reserved.
+ * Copyright (c) Zengliwei. All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
  * documentation files (the "Software"), to deal in the Software without restriction, including without limitation the
@@ -72,7 +72,7 @@ abstract class AbstractUploadAction extends AbstractAjaxAction
     {
         $fieldName = $this->getRequest()->getParam('param_name');
 
-        /* @var Uploader $uploader */
+        /** @var Uploader $uploader */
         $uploader = $this->uploaderFactory->create(['fileId' => $fieldName]);
         $result = $uploader->setAllowRenameFiles(true)
             ->setFilesDispersion(false)

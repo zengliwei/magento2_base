@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2021 Zengliwei. All rights reserved.
+ * Copyright (c) Zengliwei. All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
  * documentation files (the "Software"), to deal in the Software without restriction, including without limitation the
@@ -52,7 +52,7 @@ abstract class AbstractStoreSeparatedCollection extends AbstractCollection
     {
         parent::_initSelect();
 
-        /* @var $resource AbstractStoreSeparatedResource */
+        /** @var $resource AbstractStoreSeparatedResource */
         $resource = $this->getResource();
 
         $conn = $this->getConnection();
@@ -92,7 +92,7 @@ abstract class AbstractStoreSeparatedCollection extends AbstractCollection
     protected function _beforeLoad()
     {
         if (!$this->isLoaded()) {
-            /* @var $resource AbstractStoreSeparatedResource */
+            /** @var $resource AbstractStoreSeparatedResource */
             $resource = $this->getResource();
             $this->getSelect()->joinLeft(
                 ['s' => $this->getConnection()->getTableName($resource->getStoreTable())],

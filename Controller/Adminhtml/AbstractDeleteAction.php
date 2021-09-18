@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2021 Zengliwei. All rights reserved.
+ * Copyright (c) Zengliwei. All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
  * documentation files (the "Software"), to deal in the Software without restriction, including without limitation the
@@ -42,7 +42,7 @@ abstract class AbstractDeleteAction extends AbstractAction implements HttpPostAc
         $noEntityMessage,
         $successMessage
     ) {
-        /* @var $resultRedirect Redirect */
+        /** @var $resultRedirect Redirect */
         $resultRedirect = $this->resultFactory->create(ResultFactory::TYPE_REDIRECT);
 
         try {

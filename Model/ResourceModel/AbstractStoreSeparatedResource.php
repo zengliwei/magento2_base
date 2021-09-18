@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2021 Zengliwei. All rights reserved.
+ * Copyright (c) Zengliwei. All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
  * documentation files (the "Software"), to deal in the Software without restriction, including without limitation the
@@ -34,7 +34,7 @@ abstract class AbstractStoreSeparatedResource extends AbstractDb
     protected array $storeFields;
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     protected function _init($mainTable, $idFieldName)
     {
@@ -51,7 +51,7 @@ abstract class AbstractStoreSeparatedResource extends AbstractDb
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     protected function _getLoadSelect($field, $value, $object)
     {
@@ -81,7 +81,7 @@ abstract class AbstractStoreSeparatedResource extends AbstractDb
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     protected function _afterSave(AbstractModel $object)
     {
@@ -103,7 +103,7 @@ abstract class AbstractStoreSeparatedResource extends AbstractDb
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     protected function _afterDelete(AbstractModel $object)
     {

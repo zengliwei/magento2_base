@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2021 Zengliwei. All rights reserved.
+ * Copyright (c) Zengliwei. All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
  * documentation files (the "Software"), to deal in the Software without restriction, including without limitation the
@@ -60,7 +60,7 @@ abstract class AbstractIndexAction extends Action implements HttpGetActionInterf
     ) {
         $this->dataPersistor->clear($persistKey);
 
-        /* @var $resultPage Page */
+        /** @var $resultPage Page */
         $resultPage = $this->resultFactory->create(ResultFactory::TYPE_PAGE);
         $resultPage->setActiveMenu($activeMenu);
         $resultPage->getConfig()->getTitle()->prepend(__($pageTitle));

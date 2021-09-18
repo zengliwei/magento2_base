@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2021 Zengliwei. All rights reserved.
+ * Copyright (c) Zengliwei. All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
  * documentation files (the "Software"), to deal in the Software without restriction, including without limitation the
@@ -50,12 +50,12 @@ abstract class AbstractEditAction extends AbstractAction implements HttpGetActio
             [$model] = $this->loadModel($modelName);
         } catch (Exception $e) {
             $this->messageManager->addErrorMessage(__($noEntityMessage));
-            /* @var $resultRedirect Redirect */
+            /** @var $resultRedirect Redirect */
             $resultRedirect = $this->resultRedirectFactory->create();
             return $resultRedirect->setPath('*/*/');
         }
 
-        /* @var $resultPage Page */
+        /** @var $resultPage Page */
         $resultPage = $this->resultFactory->create(ResultFactory::TYPE_PAGE);
         $resultPage->setActiveMenu($activeMenu);
         $resultPage->getConfig()->getTitle()->prepend(
