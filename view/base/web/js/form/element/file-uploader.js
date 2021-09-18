@@ -1,6 +1,6 @@
 /**
- * Copyright © Magento, Inc. All rights reserved.
- * See COPYING.txt for license details.
+ * Copyright (c) Zengliwei. All rights reserved.
+ * Each source file in this distribution is licensed under OSL 3.0, see LICENSE for details.
  */
 
 /**
