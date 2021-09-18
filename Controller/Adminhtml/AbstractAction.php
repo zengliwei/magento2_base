@@ -12,13 +12,14 @@ use Magento\Framework\Model\AbstractModel;
 use Magento\Framework\Model\ResourceModel\Db\AbstractDb;
 
 /**
- * @package CrazyCat\Base
  * @author  Zengliwei <zengliwei@163.com>
  * @url https://github.com/zengliwei/magento2_base
  */
 abstract class AbstractAction extends Action
 {
     /**
+     * Load model with given name by request ID
+     *
      * @param string $modelName
      * @return array
      * @throws NoSuchEntityException
@@ -40,6 +41,8 @@ abstract class AbstractAction extends Action
     }
 
     /**
+     * Get model and resource model
+     *
      * @param string $modelName
      * @return array
      */

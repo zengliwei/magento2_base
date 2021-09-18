@@ -14,7 +14,6 @@ use Magento\Framework\Exception\LocalizedException;
 use Zend_Validate_Exception;
 
 /**
- * @package CrazyCat\Base
  * @author  Zengliwei <zengliwei@163.com>
  * @url https://github.com/zengliwei/magento2_base
  */
@@ -41,6 +40,8 @@ trait TraitCustomerData
     private $resourceCustomerAttribute;
 
     /**
+     * Get default ID of customer attribute set
+     *
      * @return int
      */
     private function getDefaultCustomerAttributeSetId()
@@ -52,6 +53,8 @@ trait TraitCustomerData
     }
 
     /**
+     * Get resource model of customer attribute
+     *
      * @return ResourceCustomerAttribute
      */
     private function getResourceCustomerAttribute()

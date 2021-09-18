@@ -27,7 +27,6 @@ use Magento\Framework\Message\ManagerInterface;
 use Magento\Framework\ObjectManagerInterface;
 
 /**
- * @package CrazyCat\Base
  * @author  Zengliwei <zengliwei@163.com>
  * @url https://github.com/zengliwei/magento2_base
  */
@@ -43,6 +42,29 @@ class SaveContext extends Context
      */
     protected $filesystem;
 
+    /**
+     * @param DataPersistorInterface                    $dataPersistor
+     * @param Filesystem                                $filesystem
+     * @param RequestInterface                          $request
+     * @param ResponseInterface                         $response
+     * @param ObjectManagerInterface                    $objectManager
+     * @param \Magento\Framework\Event\ManagerInterface $eventManager
+     * @param \Magento\Framework\UrlInterface           $url
+     * @param RedirectInterface                         $redirect
+     * @param ActionFlag                                $actionFlag
+     * @param ViewInterface                             $view
+     * @param ManagerInterface                          $messageManager
+     * @param RedirectFactory                           $resultRedirectFactory
+     * @param ResultFactory                             $resultFactory
+     * @param Session                                   $session
+     * @param AuthorizationInterface                    $authorization
+     * @param Auth                                      $auth
+     * @param Data                                      $helper
+     * @param UrlInterface                              $backendUrl
+     * @param Validator                                 $formKeyValidator
+     * @param ResolverInterface                         $localeResolver
+     * @param bool                                      $canUseBaseUrl
+     */
     public function __construct(
         DataPersistorInterface $dataPersistor,
         Filesystem $filesystem,
@@ -92,6 +114,8 @@ class SaveContext extends Context
     }
 
     /**
+     * Get data persistor
+     *
      * @return DataPersistorInterface
      */
     public function getDataPersistor()
@@ -100,6 +124,8 @@ class SaveContext extends Context
     }
 
     /**
+     * Get filesystem
+     *
      * @return Filesystem
      */
     public function getFilesystem()

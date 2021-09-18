@@ -11,15 +11,25 @@ use Magento\Framework\Model\ResourceModel\Db\AbstractDb;
 use Magento\Store\Model\Store;
 
 /**
- * @package CrazyCat\Base
  * @author  Zengliwei <zengliwei@163.com>
  * @url https://github.com/zengliwei/magento2_base
  */
 abstract class AbstractStoreSeparatedResource extends AbstractDb
 {
-    protected string $storeTable;
-    protected string $storeTableKey;
-    protected array $storeFields;
+    /**
+     * @var string
+     */
+    protected $storeTable;
+
+    /**
+     * @var string
+     */
+    protected $storeTableKey;
+
+    /**
+     * @var array
+     */
+    protected $storeFields;
 
     /**
      * @inheritDoc
@@ -104,6 +114,8 @@ abstract class AbstractStoreSeparatedResource extends AbstractDb
     }
 
     /**
+     * Get store table
+     *
      * @retrun string
      */
     public function getStoreTable()
@@ -112,6 +124,8 @@ abstract class AbstractStoreSeparatedResource extends AbstractDb
     }
 
     /**
+     * Get store table key
+     *
      * @retrun string
      */
     public function getStoreTableKey()
@@ -120,6 +134,8 @@ abstract class AbstractStoreSeparatedResource extends AbstractDb
     }
 
     /**
+     * Get store fields
+     *
      * @retrun array
      */
     public function getStoreFields()

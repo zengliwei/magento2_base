@@ -9,7 +9,6 @@ namespace CrazyCat\Base\Ui\Component\Store;
 use Magento\Store\Ui\Component\Listing\Column\Store\Options as StoreOptions;
 
 /**
- * @package CrazyCat\Base
  * @author  Zengliwei <zengliwei@163.com>
  * @url https://github.com/zengliwei/magento2_base
  */

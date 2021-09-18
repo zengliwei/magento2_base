@@ -28,16 +28,50 @@ use Magento\Framework\ObjectManagerInterface;
 use Magento\Store\Model\StoreManagerInterface;
 
 /**
- * @package CrazyCat\Base
  * @author  Zengliwei <zengliwei@163.com>
  * @url https://github.com/zengliwei/magento2_base
  */
 class UploadContext extends Context
 {
-    protected Filesystem $filesystem;
-    protected StoreManagerInterface $storeManager;
-    protected UploaderFactory $uploaderFactory;
+    /**
+     * @var Filesystem
+     */
+    protected $filesystem;
 
+    /**
+     * @var StoreManagerInterface
+     */
+    protected $storeManager;
+
+    /**
+     * @var UploaderFactory
+     */
+    protected $uploaderFactory;
+
+    /**
+     * @param Filesystem                                $filesystem
+     * @param StoreManagerInterface                     $storeManager
+     * @param UploaderFactory                           $uploaderFactory
+     * @param RequestInterface                          $request
+     * @param ResponseInterface                         $response
+     * @param ObjectManagerInterface                    $objectManager
+     * @param \Magento\Framework\Event\ManagerInterface $eventManager
+     * @param \Magento\Framework\UrlInterface           $url
+     * @param RedirectInterface                         $redirect
+     * @param ActionFlag                                $actionFlag
+     * @param ViewInterface                             $view
+     * @param ManagerInterface                          $messageManager
+     * @param RedirectFactory                           $resultRedirectFactory
+     * @param ResultFactory                             $resultFactory
+     * @param Session                                   $session
+     * @param AuthorizationInterface                    $authorization
+     * @param Auth                                      $auth
+     * @param Data                                      $helper
+     * @param UrlInterface                              $backendUrl
+     * @param Validator                                 $formKeyValidator
+     * @param ResolverInterface                         $localeResolver
+     * @param bool                                      $canUseBaseUrl
+     */
     public function __construct(
         Filesystem $filesystem,
         StoreManagerInterface $storeManager,
@@ -89,6 +123,8 @@ class UploadContext extends Context
     }
 
     /**
+     * Get filesystem
+     *
      * @return Filesystem
      */
     public function getFilesystem()
@@ -97,6 +133,8 @@ class UploadContext extends Context
     }
 
     /**
+     * Get store manager
+     *
      * @return StoreManagerInterface
      */
     public function getStoreManager()
@@ -105,6 +143,8 @@ class UploadContext extends Context
     }
 
     /**
+     * Get uploader factory
+     *
      * @return UploaderFactory
      */
     public function getUploaderFactory()

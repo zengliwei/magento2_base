@@ -13,14 +13,20 @@ use Magento\Framework\Url\ScopeResolverInterface;
 use Magento\Framework\UrlInterface;
 
 /**
- * @package CrazyCat\Base
  * @author  Zengliwei <zengliwei@163.com>
  * @url https://github.com/zengliwei/magento2_base
  */
 class Url
 {
-    private ObjectManagerInterface $objectManager;
-    private array $urlBuilders = [];
+    /**
+     * @var ObjectManagerInterface
+     */
+    private $objectManager;
+
+    /**
+     * @var array
+     */
+    private $urlBuilders = [];
 
     /**
      * @param ObjectManagerInterface $objectManager
@@ -32,6 +38,8 @@ class Url
     }
 
     /**
+     * Get URL builder
+     *
      * @param string $areaCode
      * @param string $instanceClass
      * @return UrlInterface
@@ -52,6 +60,8 @@ class Url
     }
 
     /**
+     * Get frontend URL builder
+     *
      * @return UrlInterface
      * @throws Exception
      */
@@ -61,6 +71,8 @@ class Url
     }
 
     /**
+     * Get backend URL builder
+     *
      * @return UrlInterface
      * @throws Exception
      */

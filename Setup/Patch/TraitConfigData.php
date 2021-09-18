@@ -11,7 +11,6 @@ use Magento\Config\Model\Config;
 use Magento\Config\Model\Config\Structure;
 
 /**
- * @package CrazyCat\Base
  * @author  Zengliwei <zengliwei@163.com>
  * @url https://github.com/zengliwei/magento2_base
  */
@@ -23,6 +22,8 @@ trait TraitConfigData
     private $configStructure;
 
     /**
+     * Save config
+     *
      * $section = 'catalog';
      * $groupData = [
      *   'frontend' => [
@@ -58,6 +59,8 @@ trait TraitConfigData
     }
 
     /**
+     * Filter nodes for given data
+     *
      * @param array $configData
      * @return array
      */
@@ -74,6 +77,8 @@ trait TraitConfigData
     }
 
     /**
+     * Get config structure
+     *
      * @return Structure
      */
     private function getConfigStructure()
@@ -85,6 +90,8 @@ trait TraitConfigData
     }
 
     /**
+     * Filter paths
+     *
      * @param string   $prefix           Path prefix
      * @param array    $groups           Groups data
      * @param string[] $systemXmlConfig  Defined paths

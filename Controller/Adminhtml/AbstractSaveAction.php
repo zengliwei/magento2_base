@@ -18,14 +18,20 @@ use Magento\Framework\Model\AbstractModel;
 use Magento\Framework\Model\ResourceModel\Db\AbstractDb;
 
 /**
- * @package CrazyCat\Base
  * @author  Zengliwei <zengliwei@163.com>
  * @url https://github.com/zengliwei/magento2_base
  */
 abstract class AbstractSaveAction extends AbstractAction implements HttpPostActionInterface
 {
-    protected DataPersistorInterface $dataPersistor;
-    protected Filesystem $filesystem;
+    /**
+     * @var DataPersistorInterface
+     */
+    protected $dataPersistor;
+
+    /**
+     * @var Filesystem
+     */
+    protected $filesystem;
 
     /**
      * Media fields which are need additional processing
@@ -46,10 +52,12 @@ abstract class AbstractSaveAction extends AbstractAction implements HttpPostActi
     }
 
     /**
-     * @param $modelName
-     * @param $noEntityMessage
-     * @param $successMessage
-     * @param $persistKey
+     * Save given model with posted data
+     *
+     * @param string $modelName
+     * @param string $noEntityMessage
+     * @param string $successMessage
+     * @param string $persistKey
      * @return ResultInterface
      */
     protected function save(
@@ -103,6 +111,8 @@ abstract class AbstractSaveAction extends AbstractAction implements HttpPostActi
     }
 
     /**
+     * Process data
+     *
      * @param array $data
      * @return array
      */

@@ -11,9 +11,15 @@ use Magento\Framework\App\Action\HttpPostActionInterface;
 use Magento\Framework\Controller\Result\Json;
 use Magento\Framework\Controller\ResultFactory;
 
+/**
+ * @author  Zengliwei <zengliwei@163.com>
+ * @url https://github.com/zengliwei/magento2_base
+ */
 abstract class AbstractAjaxAction extends AbstractAction implements HttpPostActionInterface, HttpGetActionInterface
 {
     /**
+     * Process result
+     *
      * @param array $result
      * @return Json
      */

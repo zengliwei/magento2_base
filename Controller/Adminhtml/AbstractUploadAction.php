@@ -15,7 +15,6 @@ use Magento\Framework\Filesystem\Directory\WriteInterface;
 use Magento\Store\Model\StoreManagerInterface;
 
 /**
- * @package CrazyCat\Base
  * @author  Zengliwei <zengliwei@163.com>
  * @url https://github.com/zengliwei/magento2_base
  */
@@ -24,17 +23,17 @@ abstract class AbstractUploadAction extends AbstractAjaxAction
     /**
      * @var WriteInterface
      */
-    protected WriteInterface $mediaDirectory;
+    protected $mediaDirectory;
 
     /**
      * @var UploaderFactory
      */
-    protected UploaderFactory $uploaderFactory;
+    protected $uploaderFactory;
 
     /**
      * @var StoreManagerInterface
      */
-    protected StoreManagerInterface $storeManager;
+    protected $storeManager;
 
     /**
      * @param UploadContext $context
@@ -50,6 +49,8 @@ abstract class AbstractUploadAction extends AbstractAjaxAction
     }
 
     /**
+     * Save file
+     *
      * @param string $folder  Folder path related to the media directory
      * @param array  $allowedExtensions
      * @param bool   $keepPath

@@ -13,16 +13,17 @@ use Magento\Framework\Controller\ResultFactory;
 use Magento\Framework\Controller\ResultInterface;
 
 /**
- * @package CrazyCat\Base
  * @author  Zengliwei <zengliwei@163.com>
  * @url https://github.com/zengliwei/magento2_base
  */
 abstract class AbstractDeleteAction extends AbstractAction implements HttpPostActionInterface
 {
     /**
-     * @param $modelName
-     * @param $noEntityMessage
-     * @param $successMessage
+     * Delete record of given model with posted ID
+     *
+     * @param string $modelName
+     * @param string $noEntityMessage
+     * @param string $successMessage
      * @return ResultInterface
      */
     protected function delete(

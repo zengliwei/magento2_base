@@ -11,17 +11,15 @@ use Magento\Backend\Model\View\Result\ForwardFactory;
 use Magento\Framework\App\Action\HttpGetActionInterface;
 use Magento\Framework\Controller\Result\Forward;
 use Magento\Framework\Controller\ResultFactory;
-use Magento\Framework\Controller\ResultInterface;
 
 /**
- * @package CrazyCat\Base
  * @author  Zengliwei <zengliwei@163.com>
  * @url https://github.com/zengliwei/magento2_base
  */
 abstract class AbstractNewAction extends Action implements HttpGetActionInterface
 {
     /**
-     * @return ResultInterface
+     * @inheritDoc
      */
     public function execute()
     {

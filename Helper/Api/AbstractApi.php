@@ -12,7 +12,6 @@ use Magento\Framework\HTTP\Adapter\Curl;
 use Magento\Framework\HTTP\Adapter\CurlFactory;
 
 /**
- * @package CrazyCat\Base
  * @author  Zengliwei <zengliwei@163.com>
  * @url https://github.com/zengliwei/magento2_base
  */
@@ -23,13 +22,34 @@ abstract class AbstractApi
     public const METHOD_PUT = 'PUT';
     public const METHOD_DELETE = 'DELETE';
 
-    protected CurlFactory $curlFactory;
-    protected Logger $logger;
+    /**
+     * @var CurlFactory
+     */
+    protected $curlFactory;
 
-    protected bool $isTestMode = false;
-    protected bool $logApi = false;
-    protected string $logFile = 'api.log';
+    /**
+     * @var Logger
+     */
+    protected $logger;
 
+    /**
+     * @var bool
+     */
+    protected $isTestMode = false;
+
+    /**
+     * @var bool
+     */
+    protected $logApi = false;
+
+    /**
+     * @var string
+     */
+    protected $logFile = 'api.log';
+
+    /**
+     * @param Context $context
+     */
     public function __construct(Context $context)
     {
         $this->curlFactory = $context->getCurlFactory();
@@ -37,6 +57,8 @@ abstract class AbstractApi
     }
 
     /**
+     * Log request and response
+     *
      * @param string            $method
      * @param string            $targetUrl
      * @param array             $requestHeader
@@ -44,7 +66,7 @@ abstract class AbstractApi
      * @param int               $startTime
      * @param int               $endTime
      * @param string            $response
-     * @param                   $error
+     * @param string|null       $error
      */
     protected function log($method, $targetUrl, $requestHeader, $requestBody, $startTime, $endTime, $response, $error)
     {
@@ -54,8 +76,8 @@ abstract class AbstractApi
                 $method,
                 $targetUrl,
                 round(($endTime - $startTime) * 1000),
-                print_r($requestHeader, true),
-                print_r($requestBody, true),
+                json_encode($requestHeader, true),
+                json_encode($requestBody, true),
                 $error ? sprintf('Error: %s', $error) : sprintf('Response: %s', $response)
             ),
             $this->logFile
@@ -63,6 +85,8 @@ abstract class AbstractApi
     }
 
     /**
+     * Request
+     *
      * @param string            $method
      * @param string            $sourceUrl
      * @param string|array|null $data
@@ -93,6 +117,8 @@ abstract class AbstractApi
     }
 
     /**
+     * GET
+     *
      * @param string $sourceUrl
      * @param array  $data
      * @param array  $header
@@ -108,6 +134,8 @@ abstract class AbstractApi
     }
 
     /**
+     * POST
+     *
      * @param string            $sourceUrl
      * @param string|array|null $data
      * @param array             $header
@@ -120,6 +148,8 @@ abstract class AbstractApi
     }
 
     /**
+     * PUT
+     *
      * @param string            $sourceUrl
      * @param string|array|null $data
      * @param array             $header
@@ -132,6 +162,8 @@ abstract class AbstractApi
     }
 
     /**
+     * DELETE
+     *
      * @param string            $sourceUrl
      * @param string|array|null $data
      * @param array             $header

@@ -26,7 +26,6 @@ use Magento\Framework\Message\ManagerInterface;
 use Magento\Framework\ObjectManagerInterface;
 
 /**
- * @package CrazyCat\Base
  * @author  Zengliwei <zengliwei@163.com>
  * @url https://github.com/zengliwei/magento2_base
  */
@@ -37,6 +36,28 @@ class IndexContext extends Context
      */
     protected $dataPersistor;
 
+    /**
+     * @param DataPersistorInterface                    $dataPersistor
+     * @param RequestInterface                          $request
+     * @param ResponseInterface                         $response
+     * @param ObjectManagerInterface                    $objectManager
+     * @param \Magento\Framework\Event\ManagerInterface $eventManager
+     * @param \Magento\Framework\UrlInterface           $url
+     * @param RedirectInterface                         $redirect
+     * @param ActionFlag                                $actionFlag
+     * @param ViewInterface                             $view
+     * @param ManagerInterface                          $messageManager
+     * @param RedirectFactory                           $resultRedirectFactory
+     * @param ResultFactory                             $resultFactory
+     * @param Session                                   $session
+     * @param AuthorizationInterface                    $authorization
+     * @param Auth                                      $auth
+     * @param Data                                      $helper
+     * @param UrlInterface                              $backendUrl
+     * @param Validator                                 $formKeyValidator
+     * @param ResolverInterface                         $localeResolver
+     * @param bool                                      $canUseBaseUrl
+     */
     public function __construct(
         DataPersistorInterface $dataPersistor,
         RequestInterface $request,
@@ -84,6 +105,8 @@ class IndexContext extends Context
     }
 
     /**
+     * Get data persistor
+     *
      * @return DataPersistorInterface
      */
     public function getDataPersistor()

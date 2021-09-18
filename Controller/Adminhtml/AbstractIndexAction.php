@@ -14,7 +14,6 @@ use Magento\Framework\App\Request\DataPersistorInterface;
 use Magento\Framework\Controller\ResultFactory;
 
 /**
- * @package CrazyCat\Base
  * @author  Zengliwei <zengliwei@163.com>
  * @url https://github.com/zengliwei/magento2_base
  */
@@ -36,6 +35,8 @@ abstract class AbstractIndexAction extends Action implements HttpGetActionInterf
     }
 
     /**
+     * Render page
+     *
      * @param string $persistKey
      * @param string $activeMenu
      * @param string $pageTitle

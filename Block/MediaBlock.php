@@ -8,30 +8,47 @@ namespace CrazyCat\Base\Block;
 
 use Magento\Framework\App\Filesystem\DirectoryList;
 use Magento\Framework\Exception\NoSuchEntityException;
+use Magento\Framework\Filesystem\DriverInterface;
 use Magento\Framework\View\Element\Template;
 
 /**
- * @package CrazyCat\Base
  * @author  Zengliwei <zengliwei@163.com>
  * @url https://github.com/zengliwei/magento2_base
  */
 abstract class MediaBlock extends Template
 {
+    /**
+     * @var string
+     */
     protected $defaultMediaFileId = 'CrazyCat_Base::images/default.jpg';
+
+    /**
+     * @var string
+     */
     protected $mediaFolder = 'base';
 
     /**
+     * @var DriverInterface
+     */
+    protected $driver;
+
+    /**
+     * @param DriverInterface  $driver
      * @param Template\Context $context
      * @param array            $data
      */
     public function __construct(
+        DriverInterface $driver,
         Template\Context $context,
         array $data = []
     ) {
+        $this->driver = $driver;
         parent::__construct($context, $data);
     }
 
     /**
+     * Get media URL
+     *
      * @param string      $mediaFile
      * @param string|null $mediaFolder
      * @return string
@@ -42,7 +59,7 @@ abstract class MediaBlock extends Template
         if ($mediaFile) {
             $mediaFolder = $mediaFolder ?: $this->mediaFolder;
             $mediaDirectory = $this->_filesystem->getDirectoryRead(DirectoryList::MEDIA);
-            if (is_file($mediaDirectory->getAbsolutePath($mediaFolder . '/' . $mediaFile))) {
+            if ($this->driver->isFile($mediaDirectory->getAbsolutePath($mediaFolder . '/' . $mediaFile))) {
                 return $this->_storeManager->getStore()->getBaseUrl(DirectoryList::MEDIA) .
                     $mediaFolder . '/' . $mediaFile;
             }

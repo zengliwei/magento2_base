@@ -11,12 +11,16 @@ use Magento\Framework\Model\AbstractModel;
 use Magento\Framework\Model\ResourceModel\Db\AbstractDb;
 
 /**
- * @package CrazyCat\Base
  * @author  Zengliwei <zengliwei@163.com>
  * @url https://github.com/zengliwei/magento2_base
  */
 abstract class AbstractMassSaveAction extends AbstractAjaxAction
 {
+    /**
+     * Save given model with posted data
+     *
+     * @param string $modelName
+     */
     protected function save($modelName)
     {
         $messages = [];

@@ -14,15 +14,29 @@ use Magento\Framework\View\Element\UiComponentFactory;
 use Magento\Ui\Component\Listing\Columns\Column;
 
 /**
- * @package CrazyCat\Base
  * @author  Zengliwei <zengliwei@163.com>
  * @url https://github.com/zengliwei/magento2_base
  */
 class Thumbnail extends Column
 {
-    private UrlHelper $urlHelper;
-    private AssetRepository $assetRepository;
+    /**
+     * @var UrlHelper
+     */
+    private $urlHelper;
 
+    /**
+     * @var AssetRepository
+     */
+    private $assetRepository;
+
+    /**
+     * @param AssetRepository    $assetRepository
+     * @param UrlHelper          $urlHelper
+     * @param ContextInterface   $context
+     * @param UiComponentFactory $uiComponentFactory
+     * @param array              $components
+     * @param array              $data
+     */
     public function __construct(
         AssetRepository $assetRepository,
         UrlHelper $urlHelper,

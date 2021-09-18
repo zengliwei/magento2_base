@@ -11,7 +11,6 @@ use Magento\Framework\Api\Search\AggregationInterface;
 use Magento\Framework\Api\SearchCriteriaInterface;
 
 /**
- * @package CrazyCat\Base
  * @author  Zengliwei <zengliwei@163.com>
  * @url https://github.com/zengliwei/magento2_base
  */
@@ -23,6 +22,8 @@ trait AbstractCollection
     protected $aggregations;
 
     /**
+     * Get aggregations
+     *
      * @return AggregationInterface
      */
     public function getAggregations()
@@ -31,6 +32,8 @@ trait AbstractCollection
     }
 
     /**
+     * Set aggregations
+     *
      * @param AggregationInterface $aggregations
      * @return $this
      */
@@ -41,6 +44,8 @@ trait AbstractCollection
     }
 
     /**
+     * Get search criteria
+     *
      * @return SearchCriteriaInterface|null
      */
     public function getSearchCriteria()
@@ -49,6 +54,8 @@ trait AbstractCollection
     }
 
     /**
+     * Set search criteria
+     *
      * @param SearchCriteriaInterface|null $searchCriteria
      * @return $this
      */
@@ -58,6 +65,8 @@ trait AbstractCollection
     }
 
     /**
+     * Get total count
+     *
      * @return int
      */
     public function getTotalCount()
@@ -66,6 +75,8 @@ trait AbstractCollection
     }
 
     /**
+     * Set total count
+     *
      * @param int $totalCount
      * @return $this
      */
@@ -75,6 +86,8 @@ trait AbstractCollection
     }
 
     /**
+     * Set items
+     *
      * @param ExtensibleDataInterface[] $items
      * @return $this
      */

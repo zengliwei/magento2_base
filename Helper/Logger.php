@@ -11,14 +11,20 @@ use Magento\Framework\Logger\Monolog;
 use Magento\Framework\ObjectManagerInterface;
 
 /**
- * @package CrazyCat\Base
  * @author  Zengliwei <zengliwei@163.com>
  * @url https://github.com/zengliwei/magento2_base
  */
 class Logger
 {
-    private ObjectManagerInterface $objectManager;
-    private array $loggers = [];
+    /**
+     * @var ObjectManagerInterface
+     */
+    private $objectManager;
+
+    /**
+     * @var array
+     */
+    private $loggers = [];
 
     /**
      * @param ObjectManagerInterface $objectManager
@@ -29,7 +35,9 @@ class Logger
     }
 
     /**
-     * @param $fileName
+     * Get logger
+     *
+     * @param string $fileName
      * @return Monolog
      */
     private function getLogger($fileName)
@@ -44,11 +52,13 @@ class Logger
     }
 
     /**
-     * @param mixed  $data
+     * Log
+     *
+     * @param mixed $data
      * @param string $fileName
      */
     public function log($data, $fileName = 'system.log')
     {
-        $this->getLogger('/var/log/' . $fileName)->addDebug(print_r($data, true));
+        $this->getLogger('/var/log/' . $fileName)->addDebug(json_encode($data, true));
     }
 }

@@ -18,7 +18,6 @@ use Magento\Store\Model\StoreManagerInterface;
 use Psr\Log\LoggerInterface;
 
 /**
- * @package CrazyCat\Base
  * @author  Zengliwei <zengliwei@163.com>
  * @url https://github.com/zengliwei/magento2_base
  */
@@ -63,8 +62,10 @@ abstract class AbstractStoreCollection extends AbstractCollection
     }
 
     /**
-     * @param int|int[]|Store
-     * @param bool $withAdmin
+     * Add store filter
+     *
+     * @param int|int[]|Store $store
+     * @param bool            $withAdmin
      * @return AbstractStoreCollection
      */
     public function addStoreFilter($store, $withAdmin = true)

@@ -13,14 +13,20 @@ use Magento\Eav\Setup\EavSetup;
 use Magento\Framework\Exception\LocalizedException;
 
 /**
- * @package CrazyCat\Base
  * @author  Zengliwei <zengliwei@163.com>
  * @url https://github.com/zengliwei/magento2_base
  */
 trait TraitCatalogData
 {
-    protected ?int $defaultCatalogCategoryAttributeSetId = null;
-    protected ?int $defaultProductAttributeSetId = null;
+    /**
+     * @var int|null
+     */
+    protected $defaultCatalogCategoryAttributeSetId = null;
+
+    /**
+     * @var int|null
+     */
+    protected $defaultProductAttributeSetId = null;
 
     /**
      * @var EavSetup
@@ -72,6 +78,8 @@ trait TraitCatalogData
     }
 
     /**
+     * Get default ID of catalog category attribute set
+     *
      * @return int
      */
     private function getDefaultCatalogCategoryAttributeSetId()
@@ -133,6 +141,8 @@ trait TraitCatalogData
     }
 
     /**
+     * Get default ID of production attribute set
+     *
      * @return int
      */
     private function getDefaultProductAttributeSetId()

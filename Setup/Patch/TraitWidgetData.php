@@ -12,13 +12,14 @@ use Magento\Widget\Model\ResourceModel\Widget\Instance as ResourceWidget;
 use Magento\Widget\Model\Widget\Instance as Widget;
 
 /**
- * @package CrazyCat\Base
  * @author  Zengliwei <zengliwei@163.com>
  * @url https://github.com/zengliwei/magento2_base
  */
 trait TraitWidgetData
 {
     /**
+     * Get resource model of widget
+     *
      * @return ResourceWidget
      */
     private function getResourceWidget()
@@ -27,6 +28,8 @@ trait TraitWidgetData
     }
 
     /**
+     * Create a widget with given data
+     *
      * @param array $data
      * @return Widget
      * @throws AlreadyExistsException

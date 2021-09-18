@@ -15,13 +15,14 @@ use Magento\Framework\Model\AbstractModel;
 use Magento\Framework\Model\ResourceModel\Db\AbstractDb;
 
 /**
- * @package CrazyCat\Base
  * @author  Zengliwei <zengliwei@163.com>
  * @url https://github.com/zengliwei/magento2_base
  */
 abstract class AbstractMassDeleteAction extends AbstractAction implements HttpPostActionInterface
 {
     /**
+     * Delete record of given model by request ID
+     *
      * @param string $modelName
      * @return Json
      * @throws Exception
@@ -48,8 +49,6 @@ abstract class AbstractMassDeleteAction extends AbstractAction implements HttpPo
                 }
             }
         }
-
-
 
         /** @var $resultRedirect Redirect */
         $resultRedirect = $this->resultFactory->create(ResultFactory::TYPE_REDIRECT);

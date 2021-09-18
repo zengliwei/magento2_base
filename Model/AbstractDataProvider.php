@@ -6,6 +6,7 @@
 
 namespace CrazyCat\Base\Model;
 
+use Exception;
 use Magento\Framework\App\Filesystem\DirectoryList;
 use Magento\Framework\App\ObjectManager;
 use Magento\Framework\App\Request\DataPersistorInterface;
@@ -14,13 +15,13 @@ use Magento\Framework\Exception\FileSystemException;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\Filesystem;
 use Magento\Framework\Filesystem\Directory\WriteInterface;
+use Magento\Framework\Filesystem\DriverInterface;
 use Magento\Framework\ObjectManagerInterface;
 use Magento\Store\Model\StoreManagerInterface;
 use Magento\Ui\DataProvider\Modifier\PoolInterface;
 use Magento\Ui\DataProvider\ModifierPoolDataProvider;
 
 /**
- * @package CrazyCat\Base
  * @author  Zengliwei <zengliwei@163.com>
  * @url https://github.com/zengliwei/magento2_base
  */
@@ -30,6 +31,11 @@ abstract class AbstractDataProvider extends ModifierPoolDataProvider
      * @var DataPersistorInterface
      */
     protected $dataPersistor;
+
+    /**
+     * @var DriverInterface
+     */
+    protected $driver;
 
     /**
      * @var WriteInterface
@@ -85,7 +91,9 @@ abstract class AbstractDataProvider extends ModifierPoolDataProvider
      * @param string                 $name
      * @param string                 $primaryFieldName
      * @param string                 $requestFieldName
+     * @param RequestInterface       $request
      * @param DataPersistorInterface $dataPersistor
+     * @param DriverInterface        $driver
      * @param StoreManagerInterface  $storeManager
      * @param Filesystem             $filesystem
      * @param ObjectManagerInterface $objectManager
@@ -100,6 +108,7 @@ abstract class AbstractDataProvider extends ModifierPoolDataProvider
         $requestFieldName,
         RequestInterface $request,
         DataPersistorInterface $dataPersistor,
+        DriverInterface $driver,
         StoreManagerInterface $storeManager,
         Filesystem $filesystem,
         ObjectManagerInterface $objectManager,
@@ -108,6 +117,7 @@ abstract class AbstractDataProvider extends ModifierPoolDataProvider
         PoolInterface $pool = null
     ) {
         $this->dataPersistor = $dataPersistor;
+        $this->driver = $driver;
         $this->objectManager = $objectManager;
         $this->request = $request;
         $this->storeManager = $storeManager;
@@ -119,6 +129,8 @@ abstract class AbstractDataProvider extends ModifierPoolDataProvider
     }
 
     /**
+     * Initialization
+     *
      * @return void
      */
     abstract protected function init();
@@ -149,6 +161,8 @@ abstract class AbstractDataProvider extends ModifierPoolDataProvider
     }
 
     /**
+     * Get data
+     *
      * @return array|null
      * @throws NoSuchEntityException
      */
@@ -177,6 +191,8 @@ abstract class AbstractDataProvider extends ModifierPoolDataProvider
     }
 
     /**
+     * Initialize collection
+     *
      * @param string $collectionName
      * @return void
      */
@@ -186,9 +202,11 @@ abstract class AbstractDataProvider extends ModifierPoolDataProvider
     }
 
     /**
+     * Prepare media fields for given data
+     *
      * @param array $data
      * @return array
-     * @throws NoSuchEntityException
+     * @throws Exception
      */
     protected function prepareMediaFields($data)
     {
@@ -206,24 +224,27 @@ abstract class AbstractDataProvider extends ModifierPoolDataProvider
     }
 
     /**
+     * Prepare file type field for given data
+     *
      * @param array       $data
      * @param string      $field
      * @param string      $folder
      * @param string|null $type
      * @return array|null
-     * @throws NoSuchEntityException
+     * @throws Exception
      */
     protected function prepareFileData($data, $field, $folder, $type = null)
     {
         $filePath = $this->mediaDirectory->getAbsolutePath($folder . '/' . $data[$field]);
-        if (is_file($filePath)) {
+        if ($this->driver->isFile($filePath)) {
+            $fileContent = $this->driver->fileGetContents($filePath);
             return [
                 [
                     'name' => $data[$field],
                     'file' => $data[$field],
                     'url'  => $this->getBaseMediaUrl() . $folder . '/' . $data[$field],
-                    'size' => filesize($filePath),
-                    'type' => $type ?: getImageSize($filePath)['mime']
+                    'size' => strlen($fileContent),
+                    'type' => $type ?: getimagesizefromstring($fileContent)['mime']
                 ]
             ];
         }
@@ -231,6 +252,8 @@ abstract class AbstractDataProvider extends ModifierPoolDataProvider
     }
 
     /**
+     * Get base media URL
+     *
      * @return string
      * @throws NoSuchEntityException
      */

@@ -10,15 +10,25 @@ use CrazyCat\Base\Helper\Logger;
 use Magento\Framework\HTTP\Adapter\CurlFactory;
 
 /**
- * @package CrazyCat\Base
  * @author  Zengliwei <zengliwei@163.com>
  * @url https://github.com/zengliwei/magento2_base
  */
 class Context
 {
-    protected CurlFactory $curlFactory;
-    private Logger $logger;
+    /**
+     * @var CurlFactory
+     */
+    protected $curlFactory;
 
+    /**
+     * @var Logger
+     */
+    protected $logger;
+
+    /**
+     * @param CurlFactory $curlFactory
+     * @param Logger      $logger
+     */
     public function __construct(
         CurlFactory $curlFactory,
         Logger $logger
@@ -28,6 +38,8 @@ class Context
     }
 
     /**
+     * Get CURL factory
+     *
      * @return CurlFactory
      */
     public function getCurlFactory()
@@ -36,6 +48,8 @@ class Context
     }
 
     /**
+     * Get logger
+     *
      * @return Logger
      */
     public function getLogger()

@@ -16,7 +16,6 @@ use Magento\Store\Model\Store;
 use Magento\Store\Model\StoreManagerInterface;
 
 /**
- * @package CrazyCat\Base
  * @author  Zengliwei <zengliwei@163.com>
  * @url https://github.com/zengliwei/magento2_base
  */
@@ -73,6 +72,8 @@ abstract class AbstractStoreModel extends AbstractModel
     }
 
     /**
+     * Check whether is in store
+     *
      * @return bool
      * @throws NoSuchEntityException
      */
@@ -83,6 +84,8 @@ abstract class AbstractStoreModel extends AbstractModel
     }
 
     /**
+     * Get store ID
+     *
      * @return int
      * @throws NoSuchEntityException
      */

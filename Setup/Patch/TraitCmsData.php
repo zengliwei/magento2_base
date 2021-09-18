@@ -15,7 +15,6 @@ use Magento\Cms\Model\ResourceModel\Page as ResourcePage;
 use Magento\Cms\Model\ResourceModel\Page\Collection as PageCollection;
 
 /**
- * @package CrazyCat\Base
  * @author  Zengliwei <zengliwei@163.com>
  * @url https://github.com/zengliwei/magento2_base
  */
@@ -32,6 +31,8 @@ trait TraitCmsData
     private $resourcePage;
 
     /**
+     * Create a new block collection
+     *
      * @return BlockCollection
      */
     private function createBlockCollection()
@@ -40,6 +41,8 @@ trait TraitCmsData
     }
 
     /**
+     * Create a new page collection
+     *
      * @return PageCollection
      */
     private function createPageCollection()
@@ -48,6 +51,8 @@ trait TraitCmsData
     }
 
     /**
+     * Save data of given block model
+     *
      * @param Block $block
      * @return void
      * @throws Exception
@@ -58,6 +63,8 @@ trait TraitCmsData
     }
 
     /**
+     * Get resource model of CMS block
+     *
      * @return ResourceBlock
      */
     private function getResourceBlock()
@@ -69,6 +76,8 @@ trait TraitCmsData
     }
 
     /**
+     * Save data of given page model
+     *
      * @param Page $page
      * @return void
      * @throws Exception
@@ -79,6 +88,8 @@ trait TraitCmsData
     }
 
     /**
+     * Get resource model of page
+     *
      * @return ResourcePage
      */
     private function getResourcePage()
@@ -90,6 +101,8 @@ trait TraitCmsData
     }
 
     /**
+     * Create a block model
+     *
      * @param array $data
      * @return Block
      * @throws Exception
@@ -102,6 +115,8 @@ trait TraitCmsData
     }
 
     /**
+     * Create a page model
+     *
      * @param array $data
      * @return Page
      * @throws Exception

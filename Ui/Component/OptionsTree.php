@@ -10,18 +10,34 @@ use Magento\Framework\Model\AbstractModel;
 use Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection;
 
 /**
- * @package CrazyCat\Base
  * @author  Zengliwei <zengliwei@163.com>
  * @url https://github.com/zengliwei/magento2_base
  */
 trait OptionsTree
 {
-    protected string $fieldParentId = 'parent_id';
-    protected string $fieldTitle = 'title';
-    protected string $fieldValue = 'id';
-    protected ?string $filterField = null;
+    /**
+     * @var string
+     */
+    protected $fieldParentId = 'parent_id';
 
     /**
+     * @var string
+     */
+    protected $fieldTitle = 'title';
+
+    /**
+     * @var string
+     */
+    protected $fieldValue = 'id';
+
+    /**
+     * @var string|null
+     */
+    protected $filterField = null;
+
+    /**
+     * Get options tree
+     *
      * @param AbstractCollection $collection
      * @return array
      */
@@ -58,6 +74,8 @@ trait OptionsTree
     }
 
     /**
+     * Get option label of given item
+     *
      * @param AbstractModel $item
      * @param int           $level
      * @param bool          $isLast
@@ -74,6 +92,8 @@ trait OptionsTree
     }
 
     /**
+     * Collect options
+     *
      * @param array $itemGroups
      * @param int   $parentId
      * @param int   $level

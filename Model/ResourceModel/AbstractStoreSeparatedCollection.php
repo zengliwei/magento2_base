@@ -10,15 +10,19 @@ use Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection;
 use Magento\Store\Model\Store;
 
 /**
- * @package CrazyCat\Base
  * @author  Zengliwei <zengliwei@163.com>
  * @url https://github.com/zengliwei/magento2_base
  */
 abstract class AbstractStoreSeparatedCollection extends AbstractCollection
 {
-    protected int $storeId = Store::DEFAULT_STORE_ID;
+    /**
+     * @var int
+     */
+    protected $storeId = Store::DEFAULT_STORE_ID;
 
     /**
+     * Get store ID
+     *
      * @return int
      */
     public function getStoreId()
@@ -27,6 +31,8 @@ abstract class AbstractStoreSeparatedCollection extends AbstractCollection
     }
 
     /**
+     * Set store ID
+     *
      * @param int $storeId
      * @return $this
      */
@@ -36,6 +42,9 @@ abstract class AbstractStoreSeparatedCollection extends AbstractCollection
         return $this;
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _initSelect()
     {
         parent::_initSelect();

@@ -10,12 +10,14 @@ use Magento\Config\Block\System\Config\Form\Field;
 use Magento\Framework\Data\Form\Element\AbstractElement;
 
 /**
- * @package CrazyCat\Base
  * @author  Zengliwei <zengliwei@163.com>
  * @url https://github.com/zengliwei/magento2_base
  */
 class Button extends Field
 {
+    /**
+     * @inheritDoc
+     */
     protected function _getElementHtml(AbstractElement $element)
     {
         /** @var $buttonBlock \Magento\Backend\Block\Widget\Button */
@@ -31,7 +33,7 @@ class Button extends Field
         );
         return $buttonBlock->setData(
             [
-                'label'   => __($fieldConfig['button_label']),
+                'label' => __($fieldConfig['button_label']),
                 'onclick' => 'setLocation("' . $buttonBlock->escapeUrl($url) . '")'
             ]
         )->toHtml();
