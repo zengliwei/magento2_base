@@ -85,7 +85,7 @@ trait OptionsTree
     {
         return sprintf(
             ' %s %s (ID: %d)',
-            str_repeat(html_entity_decode('&#160;', ENT_NOQUOTES, 'UTF-8'), $level * 4),
+            str_repeat('　', $level * 2),
             $item->getDataByKey($this->fieldTitle),
             $item->getId()
         );
@@ -115,10 +115,9 @@ trait OptionsTree
                 }
                 $options[] = $option;
                 if (isset($itemGroups[$parentId])) {
-                    $options = array_merge(
-                        $options,
-                        $this->collectOptions($itemGroups, $item->getId(), $level)
-                    );
+                    foreach ($this->collectOptions($itemGroups, $item->getId(), $level) as $childOption) {
+                        $options[] = $childOption;
+                    }
                 }
             }
         }
