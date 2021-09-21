@@ -59,6 +59,7 @@ class Logger
      */
     public function log($data, $fileName = 'system.log')
     {
-        $this->getLogger('/var/log/' . $fileName)->addDebug(json_encode($data, true));
+        $this->getLogger('/var/log/' . $fileName)
+            ->addDebug((is_array($data) || is_object($data)) ? json_encode($data, true) : $data);
     }
 }

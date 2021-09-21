@@ -125,7 +125,7 @@ abstract class AbstractApi
      * @return string
      * @throws LocalizedException
      */
-    protected function get($sourceUrl, $data = [], $header = [])
+    public function get($sourceUrl, $data = [], $header = [])
     {
         $query = empty($data) ? '' : http_build_query($data);
         $sourceUrl .= ($query ? ((strpos($sourceUrl, '?') === false ? '?' : '&') . $query) : '');
@@ -142,7 +142,7 @@ abstract class AbstractApi
      * @return string
      * @throws LocalizedException
      */
-    protected function post($sourceUrl, $data = null, $header = [])
+    public function post($sourceUrl, $data = null, $header = [])
     {
         return $this->request(self::METHOD_POST, $sourceUrl, $data, $header);
     }
@@ -156,7 +156,7 @@ abstract class AbstractApi
      * @return string
      * @throws LocalizedException
      */
-    protected function put($sourceUrl, $data = null, $header = [])
+    public function put($sourceUrl, $data = null, $header = [])
     {
         return $this->request(self::METHOD_PUT, $sourceUrl, $data, $header);
     }
@@ -170,7 +170,7 @@ abstract class AbstractApi
      * @return string
      * @throws LocalizedException
      */
-    protected function delete($sourceUrl, $data = null, $header = [])
+    public function delete($sourceUrl, $data = null, $header = [])
     {
         return $this->request(self::METHOD_DELETE, $sourceUrl, $data, $header);
     }
