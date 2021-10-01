@@ -46,26 +46,56 @@ class Actions extends Column
     public function prepareDataSource(array $dataSource)
     {
         $config = $this->getData('config');
+        $requestFieldName = $config['requestFieldName'] ?? 'id';
+        $primaryFieldName = $config['primaryFieldName'] ?? 'id';
+        $actions = $config['actions'] ?? ['edit', 'delete'];
+
         if (isset($config['fieldAction']['params']['route'])
             && isset($dataSource['data']['items'])
         ) {
             $route = rtrim($config['fieldAction']['params']['route'], '/') . '/';
             foreach ($dataSource['data']['items'] as &$item) {
-                $item['actions'] = [
-                    'edit'   => [
-                        'label' => __('Edit'),
-                        'href'  => $this->urlBuilder->getUrl($route . 'edit', ['id' => $item['id']])
-                    ],
-                    'delete' => [
-                        'label'   => __('Delete'),
-                        'href'    => $this->urlBuilder->getUrl($route . 'delete', ['id' => $item['id']]),
-                        'post'    => true,
-                        'confirm' => [
-                            'title'   => __('Delete'),
-                            'message' => __('Are you sure you want to delete the record (ID: %1)?', $item['id'])
-                        ],
-                    ]
-                ];
+                foreach ($actions as $action) {
+                    switch ($action) {
+                        case 'view':
+                            $item['actions'][$action] = [
+                                'label' => __('View'),
+                                'href'  => $this->urlBuilder->getUrl(
+                                    $route . 'view',
+                                    [$requestFieldName => $item[$primaryFieldName]]
+                                )
+                            ];
+                            break;
+
+                        case 'edit':
+                            $item['actions'][$action] = [
+                                'label' => __('Edit'),
+                                'href'  => $this->urlBuilder->getUrl(
+                                    $route . 'edit',
+                                    [$requestFieldName => $item[$primaryFieldName]]
+                                )
+                            ];
+                            break;
+
+                        case 'delete':
+                            $item['actions'][$action] = [
+                                'label'   => __('Delete'),
+                                'href'    => $this->urlBuilder->getUrl(
+                                    $route . 'delete',
+                                    [$requestFieldName => $item[$primaryFieldName]]
+                                ),
+                                'post'    => true,
+                                'confirm' => [
+                                    'title'   => __('Delete'),
+                                    'message' => __(
+                                        'Are you sure you want to delete the record (ID: %1)?',
+                                        $item[$primaryFieldName]
+                                    )
+                                ],
+                            ];
+                            break;
+                    }
+                }
             }
         }
         return $dataSource;

@@ -18,6 +18,11 @@ use Magento\Framework\Model\ResourceModel\Db\AbstractDb;
 abstract class AbstractAction extends Action
 {
     /**
+     * @var string
+     */
+    protected $requestFieldName = 'id';
+
+    /**
      * Load model with given name by request ID
      *
      * @param string $modelName
@@ -30,7 +35,7 @@ abstract class AbstractAction extends Action
         /** @var $resourceModel AbstractDb */
         [$model, $resourceModel] = $this->getModels($modelName);
 
-        if (($id = $this->getRequest()->getParam('id'))) {
+        if (($id = $this->getRequest()->getParam($this->requestFieldName))) {
             $resourceModel->load($model, $id);
             if (!$model->getId()) {
                 throw new NoSuchEntityException();
