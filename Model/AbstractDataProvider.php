@@ -164,7 +164,7 @@ abstract class AbstractDataProvider extends ModifierPoolDataProvider
      * Get data
      *
      * @return array|null
-     * @throws NoSuchEntityException
+     * @throws NoSuchEntityException|Exception
      */
     public function getData()
     {
