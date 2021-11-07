@@ -17,6 +17,7 @@ use Magento\Framework\Filesystem;
 use Magento\Framework\Filesystem\Directory\WriteInterface;
 use Magento\Framework\Filesystem\DriverInterface;
 use Magento\Framework\ObjectManagerInterface;
+use Magento\Framework\UrlInterface;
 use Magento\Store\Model\StoreManagerInterface;
 use Magento\Ui\DataProvider\Modifier\PoolInterface;
 use Magento\Ui\DataProvider\ModifierPoolDataProvider;
@@ -238,13 +239,16 @@ abstract class AbstractDataProvider extends ModifierPoolDataProvider
         $filePath = $this->mediaDirectory->getAbsolutePath($folder . '/' . $data[$field]);
         if ($this->driver->isFile($filePath)) {
             $fileContent = $this->driver->fileGetContents($filePath);
+            $fileInfo = finfo_open(FILEINFO_MIME);
+            $mime = finfo_file($fileInfo, $filePath);
+            finfo_close($fileInfo);
             return [
                 [
                     'name' => $data[$field],
                     'file' => $data[$field],
                     'url'  => $this->getBaseMediaUrl() . $folder . '/' . $data[$field],
                     'size' => strlen($fileContent),
-                    'type' => $type ?: getimagesizefromstring($fileContent)['mime']
+                    'type' => $type ?: $mime
                 ]
             ];
         }
@@ -260,7 +264,7 @@ abstract class AbstractDataProvider extends ModifierPoolDataProvider
     protected function getBaseMediaUrl()
     {
         if ($this->baseMediaUrl === null) {
-            $this->baseMediaUrl = $this->storeManager->getStore()->getBaseUrl(DirectoryList::MEDIA);
+            $this->baseMediaUrl = $this->storeManager->getStore()->getBaseUrl(UrlInterface::URL_TYPE_MEDIA);
         }
         return $this->baseMediaUrl;
     }
